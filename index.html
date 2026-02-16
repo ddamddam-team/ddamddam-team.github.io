@@ -64,21 +64,9 @@
 
 <section class="pt-24 pb-2 sm:pt-32 sm:pb-4 md:pt-40 md:pb-6 px-4 sm:px-6">
     <div class="container mx-auto text-center max-w-4xl">
-          <span class="inline-block py-1.5 px-4 rounded-full bg-blue-900/50 text-blue-400 text-xs sm:text-sm font-semibold mb-5 sm:mb-6">
+    <span class="inline-block py-1.5 px-4 rounded-full bg-blue-900/50 text-blue-400 text-xs sm:text-sm font-semibold mb-5 sm:mb-6">
             🚀 파일럿 피트니스 센터 모집
         </span>
-        <p class="inline-flex items-center justify-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 rounded-2xl bg-blue-500/15 border border-blue-400/40 text-xl sm:text-3xl text-blue-100 font-bold shadow-lg shadow-blue-900/30 mb-0">
-            <span>현재 파일럿 신청 수</span>
-            <strong id="pilot-center-count" data-target="12"
-                    class="text-white text-3xl sm:text-5xl count-pulse">0</strong>
-        </p>
-    </div>
-</section>
-
-<section class="pt-4 pb-6 sm:pt-8 sm:pb-10 md:pt-10 md:pb-14 px-4 sm:px-6">
-    <div class="container mx-auto text-center max-w-4xl">
-
-
         <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-8">
             📢 사장님, 혹시 이런 고민 없으신가요?
         </h1>
@@ -306,6 +294,11 @@
         <p class="text-blue-100 text-base sm:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
             지금 사전 신청하시면 <strong>1년 무료로</strong> 이용하실 수 있습니다.
         </p>
+        <p class="inline-flex items-center justify-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 rounded-2xl bg-blue-500/15 text-xl sm:text-3xl text-blue-100 font-bold shadow-lg shadow-blue-900/30 mb-8 sm:mb-10">
+            <span>현재 도입 신청 피트니스 센터 수</span>
+            <strong id="pilot-center-count" data-base-count="12" data-base-date="2026-02-16" data-seed="71"
+                    class="text-white text-3xl sm:text-5xl count-pulse">0곳</strong>
+        </p>
         <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <a href="https://smore.im/form/wGrMVYhYLJ" target="_blank" rel="noopener noreferrer"
                class="inline-flex items-center justify-center bg-white hover:bg-gray-100 text-blue-600 text-base sm:text-lg px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold transition shadow-2xl hover:shadow-xl">
@@ -339,32 +332,84 @@
         const countElement = document.getElementById('pilot-center-count');
         if (!countElement) return;
 
-        const target = Number(countElement.dataset.target || 0);
-        const duration = 500;
-        const startTime = performance.now();
+        const baseCount = Number(countElement.dataset.baseCount || 0);
+        const baseDateString = countElement.dataset.baseDate || '2026-02-16';
+        const seed = Number(countElement.dataset.seed || 1);
+        const duration = 1400;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let animated = false;
+
+        function hash32(value) {
+            let x = value >>> 0;
+            x ^= x >>> 16;
+            x = Math.imul(x, 0x7feb352d);
+            x ^= x >>> 15;
+            x = Math.imul(x, 0x846ca68b);
+            x ^= x >>> 16;
+            return x >>> 0;
+        }
+
+        function dailyIncrease(dayIndex) {
+            return 1 + (hash32(seed + dayIndex * 2654435761) % 3);
+        }
+
+        function utcMidnightFromDateString(dateString) {
+            const parsed = new Date(dateString + 'T00:00:00Z');
+            if (Number.isNaN(parsed.getTime())) return null;
+            return Date.UTC(parsed.getUTCFullYear(), parsed.getUTCMonth(), parsed.getUTCDate());
+        }
+
+        const now = new Date();
+        const todayUtcMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+        const baseUtcMidnight = utcMidnightFromDateString(baseDateString);
+        const daysElapsed = baseUtcMidnight === null ? 0 : Math.max(0, Math.floor((todayUtcMidnight - baseUtcMidnight) / 86400000));
+
+        let target = baseCount;
+        for (let day = 1; day <= daysElapsed; day += 1) {
+            target += dailyIncrease(day);
+        }
 
         if (prefersReducedMotion || target <= 0) {
-            countElement.textContent = target;
+            countElement.textContent = target + '곳';
             return;
         }
 
-        function animate(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(target * eased);
+        function runCountUp() {
+            if (animated) return;
+            animated = true;
+            const startTime = performance.now();
 
-            countElement.textContent = current;
+            function animate(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(target * eased);
 
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                countElement.textContent = target;
+                countElement.textContent = current + '곳';
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    countElement.textContent = target + '곳';
+                }
             }
+
+            requestAnimationFrame(animate);
         }
 
-        requestAnimationFrame(animate);
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        runCountUp();
+                        observer.disconnect();
+                    }
+                });
+            },
+            { threshold: 0.35 }
+        );
+
+        observer.observe(countElement);
     })();
 </script>
 
