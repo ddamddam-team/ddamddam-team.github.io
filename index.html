@@ -33,6 +33,14 @@
         .paused {
             animation-play-state: paused;
         }
+        @keyframes countPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .count-pulse {
+            display: inline-block;
+            animation: countPulse 0.8s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100">
@@ -54,11 +62,22 @@
     </div>
 </header>
 
-<section class="pt-24 pb-6 sm:pt-32 sm:pb-10 md:pt-40 md:pb-14 px-4 sm:px-6">
+<section class="pt-24 pb-2 sm:pt-32 sm:pb-4 md:pt-40 md:pb-6 px-4 sm:px-6">
     <div class="container mx-auto text-center max-w-4xl">
-        <span class="inline-block py-1.5 px-4 rounded-full bg-blue-900/50 text-blue-400 text-xs sm:text-sm font-semibold mb-5 sm:mb-6">
+          <span class="inline-block py-1.5 px-4 rounded-full bg-blue-900/50 text-blue-400 text-xs sm:text-sm font-semibold mb-5 sm:mb-6">
             🚀 파일럿 피트니스 센터 모집
         </span>
+        <p class="inline-flex items-center justify-center gap-2 sm:gap-3 px-5 py-3 sm:px-8 sm:py-4 rounded-2xl bg-blue-500/15 border border-blue-400/40 text-xl sm:text-3xl text-blue-100 font-bold shadow-lg shadow-blue-900/30 mb-0">
+            <span>현재 파일럿 신청 수</span>
+            <strong id="pilot-center-count" data-target="12"
+                    class="text-white text-3xl sm:text-5xl count-pulse">0</strong>
+        </p>
+    </div>
+</section>
+
+<section class="pt-4 pb-6 sm:pt-8 sm:pb-10 md:pt-10 md:pb-14 px-4 sm:px-6">
+    <div class="container mx-auto text-center max-w-4xl">
+
 
         <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-8">
             📢 사장님, 혹시 이런 고민 없으신가요?
@@ -314,6 +333,40 @@
         </div>
     </div>
 </footer>
+
+<script>
+    (function () {
+        const countElement = document.getElementById('pilot-center-count');
+        if (!countElement) return;
+
+        const target = Number(countElement.dataset.target || 0);
+        const duration = 500;
+        const startTime = performance.now();
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion || target <= 0) {
+            countElement.textContent = target;
+            return;
+        }
+
+        function animate(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(target * eased);
+
+            countElement.textContent = current;
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                countElement.textContent = target;
+            }
+        }
+
+        requestAnimationFrame(animate);
+    })();
+</script>
 
 </body>
 </html>
