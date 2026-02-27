@@ -31,6 +31,97 @@
             box-shadow: 0 14px 30px -12px rgba(15, 23, 42, 0.6);
         }
 
+        .flow-shell {
+            max-width: 22rem;
+            margin: 0 auto;
+            padding: 0.9rem;
+            border: 1px solid rgba(250, 204, 21, 0.28);
+            border-radius: 1.25rem;
+        }
+
+        .flow-step {
+            position: relative;
+            border: 1px solid rgba(161, 161, 170, 0.35);
+            border-radius: 0.95rem;
+            padding: 0.85rem 0.9rem 0.75rem 3.2rem;
+            text-align: left;
+        }
+
+        .flow-step-no {
+            position: absolute;
+            left: 0.75rem;
+            top: 0.8rem;
+            width: 1.7rem;
+            height: 1.7rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(250, 204, 21, 0.55);
+            background: rgba(9, 9, 11, 0.95);
+            color: #fde047;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-step-title {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #f4f4f5;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .flow-step-icon {
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-step-desc {
+            margin-top: 0.35rem;
+            color: #a1a1aa;
+            font-size: 0.78rem;
+            line-height: 1.4;
+        }
+
+        .flow-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.1rem;
+            height: 1.5rem;
+            color: rgba(250, 204, 21, 0.9);
+            font-size: 0.8rem;
+        }
+
+        .flow-connector::before {
+            content: "";
+            width: 1px;
+            height: 0.85rem;
+            background: linear-gradient(180deg, rgba(250, 204, 21, 0.85), rgba(250, 204, 21, 0.2));
+        }
+
+        .flow-result {
+            margin-top: 0.75rem;
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            border-radius: 0.9rem;
+            padding: 0.75rem 0.9rem;
+            text-align: left;
+            color: #d1fae5;
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .flow-result b {
+            color: #6ee7b7;
+        }
+
         .auto-scroll-gallery {
             overflow: hidden;
             padding: 0.25rem 0;
@@ -61,8 +152,10 @@
             box-shadow: 0 12px 20px -14px rgba(15, 23, 42, 0.9);
         }
 
-        .auto-scroll-gallery:hover .auto-scroll-track {
-            animation-play-state: paused;
+        @media (hover: hover) and (pointer: fine) {
+            .auto-scroll-gallery:hover .auto-scroll-track {
+                animation-play-state: paused;
+            }
         }
 
         .product-3d-stage {
@@ -73,12 +166,15 @@
         }
 
         .rotating-product {
-            width: min(70%, 15rem);
+            width: min(50%, 12rem);
             transform-origin: center center;
             transform-style: preserve-3d;
-            animation: product-rotate-3d 4.8s ease-in-out infinite;
             filter: drop-shadow(0 18px 30px rgba(20, 184, 166, 0.2));
             will-change: transform;
+            cursor: grab;
+            touch-action: pan-y;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         @keyframes auto-scroll {
@@ -91,25 +187,8 @@
             }
         }
 
-        @keyframes product-rotate-3d {
-            0% {
-                transform: rotateX(8deg) rotateY(-20deg);
-            }
-
-            50% {
-                transform: rotateX(8deg) rotateY(20deg);
-            }
-
-            100% {
-                transform: rotateX(8deg) rotateY(-20deg);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .rotating-product {
-                animation: none;
-                transform: rotateX(8deg) rotateY(0deg);
-            }
+        .rotating-product.is-dragging {
+            cursor: grabbing;
         }
     </style>
 </head>
@@ -224,35 +303,39 @@
 
     <section class="py-4">
         <h2 class="text-2xl font-bold text-zinc-100 mb-6 text-center">회원은 센터 지속률이 높아져요</h2>
+        <p class="text-center text-zinc-400 text-sm mb-4">참여가 이어질수록 재방문이 자연스럽게 늘어나는 구조</p>
 
-        <div class="space-y-2 text-zinc-200 font-semibold text-sm leading-relaxed">
-            <div class="flex items-center justify-center text-center gap-2 px-3 py-1">
-                <span class="w-7 h-7 rounded-full border border-zinc-400/50 bg-zinc-900/40 flex items-center justify-center">🎯</span>
-                <span>센터 챌린지 수행</span>
+        <div class="flow-shell">
+            <div class="flow-step">
+                <span class="flow-step-no">1</span>
+                <p class="flow-step-title"><span class="flow-step-icon">🎯</span>센터 챌린지 수행</p>
+                <p class="flow-step-desc">목표가 생겨서 회원이 운동 루틴을 시작해요.</p>
             </div>
-            <div class="text-center text-zinc-300/80">↓</div>
-            <div class="flex items-center justify-center text-center gap-2 px-3 py-1">
-                <span class="w-7 h-7 rounded-full border border-zinc-400/50 bg-zinc-900/40 flex items-center justify-center">📸</span>
-                <span>오운완 인증</span>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">2</span>
+                <p class="flow-step-title"><span class="flow-step-icon">📸</span>오운완 인증</p>
+                <p class="flow-step-desc">인증이 쌓일수록 꾸준함이 눈에 보이게 돼요.</p>
             </div>
-            <div class="text-center text-zinc-300/80">↓</div>
-            <div class="flex items-center justify-center text-center gap-2 px-3 py-1">
-                <span class="w-7 h-7 rounded-full border border-zinc-400/50 bg-zinc-900/40 flex items-center justify-center">❤️</span>
-                <span>서로 반응(댓글/좋아요)</span>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">3</span>
+                <p class="flow-step-title"><span class="flow-step-icon">❤️</span>서로 반응 (댓글/좋아요)</p>
+                <p class="flow-step-desc">커뮤니티 반응이 동기부여를 더 강하게 만들어요.</p>
             </div>
-            <div class="text-center text-zinc-300/80">↓</div>
-            <div class="flex items-center justify-center text-center gap-2 px-3 py-1">
-                <span class="w-7 h-7 rounded-full border border-zinc-400/50 bg-zinc-900/40 flex items-center justify-center">🎁</span>
-                <span>챌린지 및 인증 참여 혜택</span>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">4</span>
+                <p class="flow-step-title"><span class="flow-step-icon">🎁</span>참여 혜택 제공</p>
+                <p class="flow-step-desc">챌린지/인증 보상으로 다시 참여할 이유가 생겨요.</p>
             </div>
-            <div class="text-center text-zinc-300/80">↓</div>
-            <div class="flex items-center justify-center text-center gap-2 px-3 py-1">
-                <span class="w-7 h-7 rounded-full border border-zinc-400/50 bg-zinc-900/40 flex items-center justify-center">🔁</span>
-                <span>재방문</span>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">5</span>
+                <p class="flow-step-title"><span class="flow-step-icon">🔁</span>재방문</p>
+                <p class="flow-step-desc">센터 방문이 습관으로 바뀌며 지속률이 높아져요.</p>
             </div>
         </div>
-
-
     </section>
 
     <section class="py-10">
@@ -325,6 +408,127 @@
         </div>
     </div>
 </footer>
+
+<script>
+    (() => {
+        const product = document.querySelector('.rotating-product');
+        if (!product) return;
+
+        const TILT_X_DEG = 8;
+        const AUTO_SPEED_DEG_PER_SEC = 20;
+        const DRAG_SENSITIVITY = 0.35;
+        const AUTO_RESUME_DELAY_MS = 2000;
+
+        let currentAngle = -20;
+        let isAutoRotating = true;
+        let isDragging = false;
+        let activePointerId = null;
+        let dragStartX = 0;
+        let dragStartAngle = currentAngle;
+        let autoResumeTimer = null;
+        let rafId = null;
+        let previousTimestamp = 0;
+
+        const applyTransform = () => {
+            product.style.transform = `rotateX(${TILT_X_DEG}deg) rotateY(${currentAngle}deg)`;
+        };
+
+        const clearAutoResumeTimer = () => {
+            if (autoResumeTimer !== null) {
+                clearTimeout(autoResumeTimer);
+                autoResumeTimer = null;
+            }
+        };
+
+        const pauseAutoRotate = () => {
+            isAutoRotating = false;
+            clearAutoResumeTimer();
+        };
+
+        const scheduleAutoRotate = () => {
+            clearAutoResumeTimer();
+            autoResumeTimer = setTimeout(() => {
+                if (!isDragging) {
+                    isAutoRotating = true;
+                }
+            }, AUTO_RESUME_DELAY_MS);
+        };
+
+        const onPointerDown = (event) => {
+            if (event.button !== undefined && event.button !== 0) return;
+
+            isDragging = true;
+            activePointerId = event.pointerId;
+            dragStartX = event.clientX;
+            dragStartAngle = currentAngle;
+            pauseAutoRotate();
+            product.classList.add('is-dragging');
+            product.setPointerCapture(event.pointerId);
+        };
+
+        const onPointerMove = (event) => {
+            if (!isDragging || event.pointerId !== activePointerId) return;
+
+            const deltaX = event.clientX - dragStartX;
+            currentAngle = dragStartAngle + deltaX * DRAG_SENSITIVITY;
+            applyTransform();
+        };
+
+        const onPointerEnd = (event) => {
+            if (!isDragging || event.pointerId !== activePointerId) return;
+
+            isDragging = false;
+            activePointerId = null;
+            product.classList.remove('is-dragging');
+
+            if (product.hasPointerCapture(event.pointerId)) {
+                product.releasePointerCapture(event.pointerId);
+            }
+
+            scheduleAutoRotate();
+        };
+
+        const animate = (timestamp) => {
+            if (!previousTimestamp) previousTimestamp = timestamp;
+            const deltaSec = (timestamp - previousTimestamp) / 1000;
+            previousTimestamp = timestamp;
+
+            if (isAutoRotating && !isDragging) {
+                currentAngle += AUTO_SPEED_DEG_PER_SEC * deltaSec;
+                if (Math.abs(currentAngle) > 360) {
+                    currentAngle %= 360;
+                }
+                applyTransform();
+            }
+
+            rafId = requestAnimationFrame(animate);
+        };
+
+        product.addEventListener('pointerdown', onPointerDown);
+        product.addEventListener('pointermove', onPointerMove);
+        product.addEventListener('pointerup', onPointerEnd);
+        product.addEventListener('pointercancel', onPointerEnd);
+        product.addEventListener('dragstart', (event) => event.preventDefault());
+
+        product.addEventListener('lostpointercapture', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            activePointerId = null;
+            product.classList.remove('is-dragging');
+            scheduleAutoRotate();
+        });
+
+        applyTransform();
+        rafId = requestAnimationFrame(animate);
+
+        window.addEventListener('pagehide', () => {
+            clearAutoResumeTimer();
+            if (rafId !== null) {
+                cancelAnimationFrame(rafId);
+            }
+        });
+    })();
+</script>
 
 </body>
 </html>
