@@ -112,14 +112,72 @@
         .service-mock {
           width: 100%;
           max-width: 360px;
-          height: 480px;
+          height: min(42vh, 420px);
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
           overflow: hidden;
-          border-radius: 28px 28px 0 0;
+          border-radius: 32px 32px 0 0;
         }
         .service-preview-image {
           display: block;
           width: 100%;
           height: auto;
+          filter: drop-shadow(0 32px 72px rgba(2, 6, 23, 0.38));
+        }
+        .service-preview-full-section {
+          max-width: 100%;
+          padding-top: 16px;
+          padding-bottom: 64px;
+        }
+        .feature-overview-section {
+          padding-top: 28px;
+        }
+        .service-preview-heading {
+          margin-bottom: 28px;
+          text-align: center;
+          font-size: clamp(22px, 3.4vw, 32px);
+          font-weight: 700;
+          letter-spacing: -0.04em;
+          line-height: 1.35;
+          color: var(--white);
+        }
+        .service-preview-scroll-stage {
+          position: relative;
+          max-width: 520px;
+          height: clamp(1180px, 170vh, 1380px);
+          margin: 0 auto;
+        }
+        .service-preview-full-frame {
+          --preview-window-height: min(78vh, 760px);
+          --preview-sticky-top: clamp(88px, 12vh, 132px);
+          max-width: 360px;
+          height: var(--preview-window-height);
+          margin: 0 auto;
+          overflow: hidden;
+          border-radius: 40px;
+          position: sticky;
+          top: var(--preview-sticky-top);
+        }
+        .service-preview-full-frame::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(2, 6, 23, 0.04) 0%, rgba(2, 6, 23, 0) 18%, rgba(2, 6, 23, 0) 82%, rgba(2, 6, 23, 0.12) 100%);
+        }
+        .service-preview-scroll-image {
+          display: block;
+          width: 100%;
+          height: auto;
+          filter: drop-shadow(0 32px 72px rgba(2, 6, 23, 0.3));
+          will-change: transform;
+          transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .service-preview-scroll-image {
+            transform: translateY(0);
+          }
         }
 
         /* HERO */
@@ -371,55 +429,6 @@
           }
         }
 
-        /* SERVICE FEATURE */
-        .service-feature {
-          margin-top: 36px;
-          display: grid;
-          grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1fr);
-          gap: 36px;
-          align-items: center;
-        }
-        .service-feature + .service-feature {
-          margin-top: 72px;
-        }
-        .service-feature-copy .section-title {
-          margin-bottom: 18px;
-        }
-        .service-feature-desc {
-          max-width: 460px;
-        }
-        .service-feature-points {
-          margin-top: 28px;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
-        .service-feature-point {
-          padding: 14px 16px;
-          border: 1px solid var(--border);
-          border-radius: 14px;
-          background: rgba(255,255,255,0.03);
-          color: var(--text-secondary);
-          font-size: 14px;
-          line-height: 1.6;
-        }
-        .service-feature-point strong {
-          color: var(--white);
-          font-weight: 600;
-        }
-        .service-feature-media {
-          border-radius: 28px;
-          overflow: hidden;
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.08);
-          box-shadow: 0 24px 48px rgba(2, 6, 23, 0.28);
-        }
-        .service-feature-media img {
-          display: block;
-          width: 100%;
-          height: auto;
-        }
-
         /* FLOW */
         .flow-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
         .flow-item {
@@ -542,8 +551,28 @@
           .service-copy .service-copy-point { font-size: clamp(24px, 6.8vw, 30px); }
           .service-copy .service-copy-main { font-size: clamp(32px, 10vw, 40px); }
           .service-mock {
-            max-width: 320px;
-            height: 420px;
+            max-width: 280px;
+            height: min(34vh, 300px);
+          }
+          .service-preview-full-section {
+            padding-top: 0;
+            padding-bottom: 24px;
+          }
+          .feature-overview-section {
+            padding-top: 16px;
+          }
+          .service-preview-heading {
+            margin-bottom: 20px;
+            font-size: clamp(20px, 6.2vw, 26px);
+          }
+          .service-preview-scroll-stage {
+            max-width: 280px;
+            height: clamp(900px, 132vh, 1080px);
+          }
+          .service-preview-full-frame {
+            max-width: 280px;
+            --preview-window-height: min(58vh, 520px);
+            --preview-sticky-top: 88px;
           }
           .hero-inner { padding: 120px 20px 72px; }
           .hero-wrap { background-position: 62% center; }
@@ -574,10 +603,6 @@
             height: 136px;
           }
           .hero-problem-title { font-size: clamp(12px, 7vw, 18px); }
-          .service-feature {
-            grid-template-columns: 1fr;
-            gap: 24px;
-          }
           .feature-grid { grid-template-columns: 1fr 1fr; }
           .cta-section { padding: 72px 20px; }
         }
@@ -602,7 +627,7 @@
         </div>
 
         <div class="service-mock fade-up" style="transition-delay:0.16s">
-            <img src="images/service_img.png" alt="오운완 센터 서비스 화면" class="service-preview-image">
+            <img src="images/service_img.png" alt="오운완 센터 서비스 랜딩 목업" class="service-preview-image">
         </div>
     </div>
 </section>
@@ -688,50 +713,68 @@
     </p>
 </section>
 
-<!-- SERVICE FEATURE -->
-<section>
-    <div class="service-feature">
-        <div class="service-feature-copy fade-up">
-            <h2 class="section-title">운동인증</h2>
-            <p class="section-desc service-feature-desc">회원이 센터 내 운동을 사진으로 남기면 기록이 쌓이고, 좋아요와 댓글로
-                자연스럽게 다음 참여가 이어집니다.</p>
+<section class="service-preview-full-section">
+    <h2 class="service-preview-heading fade-up">오운완 센터전용 기능을 소개해요.</h2>
+    <div class="service-preview-scroll-stage">
+        <div class="service-preview-full-frame fade-up">
+            <img src="images/service_img.png" alt="오운완 센터 서비스 랜딩 목업 전체 화면"
+                 class="service-preview-scroll-image">
         </div>
+    </div>
+</section>
 
-        <div class="service-feature-media fade-up" style="animation-delay:0.1s">
-            <img src="images/feat_1.png" alt="오운완 운동 인증 화면">
+<!-- FEATURES -->
+<section class="feature-overview-section">
+    <div class="feature-tag tag-now fade-up">우선 제공</div>
+    <div class="feature-grid" style="margin-top: 8px;">
+        <div class="feature-card fade-up">
+            <div class="feature-icon">📲</div>
+            <h4>QR 참여</h4>
+            <p>앱 설치 없이 센터 QR로 바로 입장하고 참여를 시작합니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.05s">
+            <div class="feature-icon">📸</div>
+            <h4>운동 인증</h4>
+            <p>운동 사진을 올리면 오늘의 방문이 인증 기록으로 남습니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.1s">
+            <div class="feature-icon">🏆</div>
+            <h4>출석 랭킹</h4>
+            <p>주간·월간 기준으로 참여 상위 회원을 바로 확인할 수 있습니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.15s">
+            <div class="feature-icon">💬</div>
+            <h4>회원 게시판</h4>
+            <p>공지, 가입인사, 자유글을 한곳에서 운영하는 센터 전용 공간입니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.2s">
+            <div class="feature-icon">📊</div>
+            <h4>운동 기록</h4>
+            <p>월간 달성률과 누적 인증 흐름을 직관적으로 확인할 수 있습니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.25s">
+            <div class="feature-icon">🏢</div>
+            <h4>센터 전용 페이지</h4>
+            <p>우리 센터만의 랭킹, 기록, 소통 화면을 한곳에 모아 제공합니다.</p>
         </div>
     </div>
 
-    <div class="service-feature">
-        <div class="service-feature-copy fade-up">
-            <h2 class="section-title">랭킹</h2>
-            <p class="section-desc service-feature-desc">월간/주간 랭킹으로 회원들의 참여가 한눈에 보이고, 자연스러운 경쟁과 동기부여가 이어집니다.</p>
+    <div class="feature-tag tag-soon fade-up" style="margin-top: 32px;">추후 확장</div>
+    <div class="feature-grid" style="margin-top: 8px;">
+        <div class="feature-card future fade-up">
+            <div class="feature-icon">🎯</div>
+            <h4>챌린지</h4>
+            <p>기간별 미션을 열어 회원의 재방문 계기를 더 자주 만듭니다.</p>
         </div>
-
-        <div class="service-feature-media fade-up" style="animation-delay:0.1s">
-            <img src="images/feat_2.png" alt="오운완 랭킹 화면">
+        <div class="feature-card future fade-up" style="animation-delay:0.05s">
+            <div class="feature-icon">🛒</div>
+            <h4>상품 판매</h4>
+            <p>센터 MD나 보충제를 자연스럽게 소개하고 판매할 수 있습니다.</p>
         </div>
-    </div>
-
-    <div class="service-feature">
-        <div class="service-feature-copy fade-up">
-            <h2 class="section-title">기록</h2>
-            <p class="section-desc service-feature-desc">월간 달성률로 회원이 얼마나 꾸준히 참여하고 있는지 직관적으로 확인할 수 있습니다.</p>
-        </div>
-
-        <div class="service-feature-media fade-up" style="animation-delay:0.1s">
-            <img src="images/feat_3.png" alt="오운완 기록 화면">
-        </div>
-    </div>
-
-    <div class="service-feature">
-        <div class="service-feature-copy fade-up">
-            <h2 class="section-title">게시판</h2>
-            <p class="section-desc service-feature-desc">공지, 가입인사, 자유글을 한곳에서 운영하며 회원과 센터 사이의 소통을 자연스럽게 이어갑니다.</p>
-        </div>
-
-        <div class="service-feature-media fade-up" style="animation-delay:0.1s">
-            <img src="images/feat_4.png" alt="오운완 게시판 화면">
+        <div class="feature-card future fade-up" style="animation-delay:0.1s">
+            <div class="feature-icon">📈</div>
+            <h4>운영자 대시보드</h4>
+            <p>인증 수, 참여 추이, 이탈 징후 회원을 한눈에 파악할 수 있습니다.</p>
         </div>
     </div>
 </section>
@@ -772,67 +815,6 @@
                 <h4>다음 주에도 나오게 되는 구조</h4>
                 <p>동료가 생기고, 기록이 끊기기 싫어집니다. 출석이 점점 습관이 됩니다.</p>
             </div>
-        </div>
-    </div>
-</section>
-
-<hr class="divider">
-
-<!-- FEATURES -->
-<section>
-    <div class="section-label fade-up">제공 기능</div>
-    <h2 class="section-title fade-up">지금 바로 쓸 수 있는 기능들</h2>
-
-    <div class="feature-tag tag-now fade-up">우선 제공</div>
-    <div class="feature-grid" style="margin-top: 8px;">
-        <div class="feature-card fade-up">
-            <div class="feature-icon">📲</div>
-            <h4>QR 참여</h4>
-            <p>설치 없이 QR 하나로 즉시 합류</p>
-        </div>
-        <div class="feature-card fade-up" style="animation-delay:0.05s">
-            <div class="feature-icon">✅</div>
-            <h4>운동 인증</h4>
-            <p>사진 기반 인증으로 기록 누적</p>
-        </div>
-        <div class="feature-card fade-up" style="animation-delay:0.1s">
-            <div class="feature-icon">🏆</div>
-            <h4>출석 랭킹</h4>
-            <p>센터 내 회원 간 건강한 경쟁</p>
-        </div>
-        <div class="feature-card fade-up" style="animation-delay:0.15s">
-            <div class="feature-icon">💬</div>
-            <h4>회원 게시판</h4>
-            <p>센터 전용 커뮤니티 공간</p>
-        </div>
-        <div class="feature-card fade-up" style="animation-delay:0.2s">
-            <div class="feature-icon">📊</div>
-            <h4>운동 기록</h4>
-            <p>개인 운동 이력 누적 관리</p>
-        </div>
-        <div class="feature-card fade-up" style="animation-delay:0.25s">
-            <div class="feature-icon">🏢</div>
-            <h4>센터 전용 페이지</h4>
-            <p>우리 센터만의 공간 제공</p>
-        </div>
-    </div>
-
-    <div class="feature-tag tag-soon fade-up" style="margin-top: 32px;">추후 확장</div>
-    <div class="feature-grid" style="margin-top: 8px;">
-        <div class="feature-card future fade-up">
-            <div class="feature-icon">🎯</div>
-            <h4>챌린지</h4>
-            <p>기간 한정 참여 이벤트</p>
-        </div>
-        <div class="feature-card future fade-up" style="animation-delay:0.05s">
-            <div class="feature-icon">🛒</div>
-            <h4>상품 판매</h4>
-            <p>센터 내 MD · 보충제 판매</p>
-        </div>
-        <div class="feature-card future fade-up" style="animation-delay:0.1s">
-            <div class="feature-icon">📈</div>
-            <h4>운영자 대시보드</h4>
-            <p>회원 출석·이탈 데이터 분석</p>
         </div>
     </div>
 </section>
@@ -891,6 +873,70 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    const previewStage = document.querySelector('.service-preview-scroll-stage');
+    const previewFrame = document.querySelector('.service-preview-full-frame');
+    const previewImage = document.querySelector('.service-preview-scroll-image');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let previewMetrics = null;
+    let previewTicking = false;
+
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+    const updatePreviewMetrics = () => {
+      if (!previewStage || !previewFrame || !previewImage) return;
+
+      const stickyTop = parseFloat(getComputedStyle(previewFrame).top) || 0;
+      const frameHeight = previewFrame.offsetHeight;
+      const imageHeight = previewImage.offsetHeight;
+      const stageTop = window.scrollY + previewStage.getBoundingClientRect().top;
+      const scrollRange = Math.max(previewStage.offsetHeight - frameHeight, 1);
+
+      previewMetrics = {
+        start: stageTop - stickyTop,
+        end: stageTop - stickyTop + scrollRange,
+        maxOffset: Math.min(0, frameHeight - imageHeight)
+      };
+
+      updatePreviewPosition();
+    };
+
+    const updatePreviewPosition = () => {
+      previewTicking = false;
+      if (!previewImage || !previewMetrics) return;
+
+      if (reducedMotionQuery.matches || previewMetrics.maxOffset === 0) {
+        previewImage.style.transform = 'translateY(0)';
+        return;
+      }
+
+      const progress = clamp(
+        (window.scrollY - previewMetrics.start) / (previewMetrics.end - previewMetrics.start),
+        0,
+        1
+      );
+
+      previewImage.style.transform = `translateY(${previewMetrics.maxOffset * progress}px)`;
+    };
+
+    const requestPreviewPosition = () => {
+      if (previewTicking) return;
+      previewTicking = true;
+      window.requestAnimationFrame(updatePreviewPosition);
+    };
+
+    if (previewStage && previewFrame && previewImage) {
+      previewImage.addEventListener('load', updatePreviewMetrics);
+      window.addEventListener('resize', updatePreviewMetrics);
+      window.addEventListener('scroll', requestPreviewPosition, { passive: true });
+
+      if (typeof reducedMotionQuery.addEventListener === 'function') {
+        reducedMotionQuery.addEventListener('change', updatePreviewMetrics);
+      }
+
+      updatePreviewMetrics();
+      window.addEventListener('load', updatePreviewMetrics, { once: true });
+    }
 
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
