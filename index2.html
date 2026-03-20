@@ -151,15 +151,56 @@
         .service-preview-full-frame {
           --preview-window-height: min(78vh, 760px);
           --preview-sticky-top: clamp(88px, 12vh, 132px);
-          max-width: 360px;
+          max-width: 376px;
           height: var(--preview-window-height);
           margin: 0 auto;
-          overflow: hidden;
-          border-radius: 40px;
           position: sticky;
           top: var(--preview-sticky-top);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
-        .service-preview-full-frame::after {
+        .service-preview-device {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          padding: 10px;
+          border-radius: 42px;
+          background: linear-gradient(180deg, #24262b 0%, #0b0c0e 100%);
+          box-shadow: 0 30px 80px rgba(2, 6, 23, 0.42);
+        }
+        .service-preview-device::before {
+          content: '';
+          position: absolute;
+          top: 12px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 34%;
+          height: 24px;
+          border-radius: 999px;
+          background: #050506;
+          z-index: 3;
+        }
+        .service-preview-device::after {
+          content: '';
+          position: absolute;
+          top: 18px;
+          left: calc(50% + 44px);
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.12);
+          z-index: 3;
+        }
+        .service-preview-screen {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          border-radius: 34px;
+          background: #fff;
+        }
+        .service-preview-screen::after {
           content: '';
           position: absolute;
           inset: 0;
@@ -170,7 +211,6 @@
           display: block;
           width: 100%;
           height: auto;
-          filter: drop-shadow(0 32px 72px rgba(2, 6, 23, 0.3));
           will-change: transform;
           transform: translateY(0);
         }
@@ -474,6 +514,53 @@
         }
         .tag-now { background: rgba(59,158,255,0.15); color: var(--accent); }
         .tag-soon { background: rgba(138,154,176,0.15); color: var(--text-muted); }
+        .feature-summary {
+          margin-top: 40px;
+          padding-top: 28px;
+          border-top: 1px solid rgba(255,255,255,0.12);
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+          gap: 24px 44px;
+          align-items: center;
+        }
+        .feature-summary-kicker {
+          grid-column: 1 / -1;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--accent);
+        }
+        .feature-summary h3 {
+          font-size: clamp(20px, 2.6vw, 28px);
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          line-height: 1.4;
+        }
+        .feature-summary-content {
+          max-width: 520px;
+        }
+        .feature-summary-body p {
+          font-size: 14px;
+          color: var(--text-muted);
+          line-height: 1.75;
+        }
+        .feature-summary-body p + p {
+          margin-top: 12px;
+        }
+        .feature-summary-visual {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .feature-summary-shot-frame {
+          width: min(100%, 360px);
+        }
+        .feature-summary-shot {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
 
         /* EFFECTS */
         .effect-list { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; }
@@ -574,6 +661,23 @@
             --preview-window-height: min(58vh, 520px);
             --preview-sticky-top: 88px;
           }
+          .service-preview-device {
+            padding: 8px;
+            border-radius: 34px;
+          }
+          .service-preview-device::before {
+            top: 10px;
+            height: 20px;
+          }
+          .service-preview-device::after {
+            top: 15px;
+            left: calc(50% + 34px);
+            width: 10px;
+            height: 10px;
+          }
+          .service-preview-screen {
+            border-radius: 28px;
+          }
           .hero-inner { padding: 120px 20px 72px; }
           .hero-wrap { background-position: 62% center; }
           .hero-title { margin-bottom: 32px; }
@@ -604,6 +708,17 @@
           }
           .hero-problem-title { font-size: clamp(12px, 7vw, 18px); }
           .feature-grid { grid-template-columns: 1fr 1fr; }
+          .feature-summary {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding-top: 24px;
+          }
+          .feature-summary-visual {
+            margin-top: 6px;
+          }
+          .feature-summary-shot-frame {
+            width: min(100%, 300px);
+          }
           .cta-section { padding: 72px 20px; }
         }
     </style>
@@ -717,8 +832,12 @@
     <h2 class="service-preview-heading fade-up">오운완 센터전용 기능을 소개해요.</h2>
     <div class="service-preview-scroll-stage">
         <div class="service-preview-full-frame fade-up">
-            <img src="images/service_img.png" alt="오운완 센터 서비스 랜딩 목업 전체 화면"
-                 class="service-preview-scroll-image">
+            <div class="service-preview-device">
+                <div class="service-preview-screen">
+                    <img src="images/service_img.png" alt="오운완 센터 서비스 랜딩 목업 전체 화면"
+                         class="service-preview-scroll-image">
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -775,6 +894,22 @@
             <div class="feature-icon">📈</div>
             <h4>운영자 대시보드</h4>
             <p>인증 수, 참여 추이, 이탈 징후 회원을 한눈에 파악할 수 있습니다.</p>
+        </div>
+    </div>
+
+    <div class="feature-summary fade-up">
+        <div class="feature-summary-kicker">확장 가능성</div>
+        <div class="feature-summary-content">
+            <h3>센터 안의 참여가, 센터 밖의 인지도로 이어집니다.</h3>
+            <div class="feature-summary-body">
+                <p>회원들의 인증 피드가 쌓이며 우리 센터의 분위기와 활기가 자연스럽게 드러납니다.</p>
+                <p>추후에는 외부 참여형 챌린지를 열어 추가 수익 모델로도 확장할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="feature-summary-visual">
+            <div class="feature-summary-shot-frame">
+                <img src="images/center_share.png" alt="오운완 피드 목업 이미지" class="feature-summary-shot">
+            </div>
         </div>
     </div>
 </section>
@@ -876,6 +1011,7 @@
 
     const previewStage = document.querySelector('.service-preview-scroll-stage');
     const previewFrame = document.querySelector('.service-preview-full-frame');
+    const previewViewport = document.querySelector('.service-preview-screen');
     const previewImage = document.querySelector('.service-preview-scroll-image');
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let previewMetrics = null;
@@ -884,10 +1020,11 @@
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
     const updatePreviewMetrics = () => {
-      if (!previewStage || !previewFrame || !previewImage) return;
+      if (!previewStage || !previewFrame || !previewViewport || !previewImage) return;
 
       const stickyTop = parseFloat(getComputedStyle(previewFrame).top) || 0;
       const frameHeight = previewFrame.offsetHeight;
+      const viewportHeight = previewViewport.offsetHeight;
       const imageHeight = previewImage.offsetHeight;
       const stageTop = window.scrollY + previewStage.getBoundingClientRect().top;
       const scrollRange = Math.max(previewStage.offsetHeight - frameHeight, 1);
@@ -895,7 +1032,7 @@
       previewMetrics = {
         start: stageTop - stickyTop,
         end: stageTop - stickyTop + scrollRange,
-        maxOffset: Math.min(0, frameHeight - imageHeight)
+        maxOffset: Math.min(0, viewportHeight - imageHeight)
       };
 
       updatePreviewPosition();
@@ -925,7 +1062,7 @@
       window.requestAnimationFrame(updatePreviewPosition);
     };
 
-    if (previewStage && previewFrame && previewImage) {
+    if (previewStage && previewFrame && previewViewport && previewImage) {
       previewImage.addEventListener('load', updatePreviewMetrics);
       window.addEventListener('resize', updatePreviewMetrics);
       window.addEventListener('scroll', requestPreviewPosition, { passive: true });
