@@ -132,6 +132,7 @@
         }
         .feature-overview-section {
           padding-top: 28px;
+          max-width: 1360px;
         }
         .service-preview-heading {
           margin-bottom: 28px;
@@ -355,6 +356,90 @@
           margin-top: 20px;
           color: var(--white);
         }
+        .b2c-proof-feature {
+          max-width: 1120px;
+          margin: 32px auto 0;
+          padding: 28px;
+          display: grid;
+          grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+          gap: 28px;
+          align-items: center;
+          border-radius: 28px;
+        }
+        .b2c-proof-feature-copy {
+          text-align: left;
+        }
+        .b2c-proof-feature-kicker {
+          display: inline-flex;
+          align-items: center;
+          padding: 7px 12px;
+          border-radius: 999px;
+          border: 1px solid rgba(59,158,255,0.24);
+          background: rgba(59,158,255,0.08);
+          color: #8dc5ff;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .b2c-proof-feature-title {
+          margin-top: 16px;
+          font-size: clamp(28px, 3.2vw, 42px);
+          font-weight: 700;
+          line-height: 1.18;
+          letter-spacing: -0.04em;
+          color: var(--white);
+        }
+        .b2c-proof-feature-intro {
+          margin-top: 14px;
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 1.65;
+          letter-spacing: -0.03em;
+          color: #e8f1ff;
+        }
+        .b2c-proof-feature-body {
+          margin-top: 16px;
+          font-size: 15px;
+          line-height: 1.8;
+          color: var(--text-secondary);
+        }
+        .b2c-proof-feature-list {
+          list-style: none;
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .b2c-proof-feature-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          padding: 12px 14px;
+          border-radius: 16px;
+          background: rgba(255,255,255,0.03);
+          color: var(--white);
+          font-size: 14px;
+          line-height: 1.6;
+        }
+        .b2c-proof-feature-list li::before {
+          content: '•';
+          color: var(--accent);
+          font-size: 18px;
+          line-height: 1;
+          margin-top: 1px;
+          flex-shrink: 0;
+        }
+        .b2c-proof-feature-visual {
+          min-width: 0;
+        }
+        .b2c-proof-feature-visual img {
+          display: block;
+          width: 100%;
+          height: auto;
+          border-radius: 22px;
+          border: 1px solid rgba(255,255,255,0.06);
+        }
 
         /* VALIDATION */
         .validation-section {
@@ -489,12 +574,35 @@
 
         /* FEATURES */
         .feature-grid {
-          display: grid; grid-template-columns: repeat(3, 1fr);
-          gap: 12px; margin-top: 40px;
+          display: flex;
+          gap: 12px;
+          margin-top: 40px;
+          overflow-x: auto;
+          padding-bottom: 10px;
+          scroll-snap-type: x proximity;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255,255,255,0.18) transparent;
+        }
+        .feature-grid::-webkit-scrollbar {
+          height: 8px;
+        }
+        .feature-grid::-webkit-scrollbar-thumb {
+          background: rgba(255,255,255,0.18);
+          border-radius: 999px;
+        }
+        .feature-grid--six .feature-card {
+          flex: 0 0 calc((100% - 60px) / 6);
+          min-width: 190px;
+        }
+        .feature-grid--three .feature-card {
+          flex: 0 0 calc((100% - 24px) / 3);
+          min-width: 220px;
         }
         .feature-card {
           background: var(--navy-mid); border: 1px solid var(--border);
           border-radius: 12px; padding: 20px 22px;
+          scroll-snap-align: start;
         }
         .feature-icon {
           width: 36px; height: 36px; border-radius: 8px;
@@ -618,10 +726,10 @@
           .hero-problem-image--photo {
             aspect-ratio: 1 / 1;
           }
-          .b2c-proof-grid {
-            grid-template-columns: repeat(2, minmax(0, 220px));
-            max-width: 460px;
-            gap: 14px 18px;
+          .b2c-proof-feature {
+            grid-template-columns: 1fr;
+            max-width: 760px;
+            gap: 22px;
           }
         }
 
@@ -689,10 +797,29 @@
             padding-top: 0;
             padding-bottom: 32px;
           }
-          .b2c-proof-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            max-width: 380px;
-            gap: 8px 12px;
+          .b2c-proof-feature {
+            margin-top: 24px;
+            padding: 18px;
+            border-radius: 22px;
+            gap: 18px;
+          }
+          .b2c-proof-feature-title {
+            margin-top: 14px;
+            font-size: clamp(24px, 7vw, 32px);
+          }
+          .b2c-proof-feature-intro {
+            font-size: 16px;
+          }
+          .b2c-proof-feature-body {
+            font-size: 14px;
+            line-height: 1.72;
+          }
+          .b2c-proof-feature-list {
+            margin-top: 16px;
+          }
+          .b2c-proof-feature-list li {
+            padding: 11px 12px;
+            font-size: 13px;
           }
           .validation-chart {
             padding: 18px 12px;
@@ -707,7 +834,15 @@
             height: 136px;
           }
           .hero-problem-title { font-size: clamp(12px, 7vw, 18px); }
-          .feature-grid { grid-template-columns: 1fr 1fr; }
+          .feature-grid {
+            padding-bottom: 6px;
+          }
+          .feature-grid--six .feature-card {
+            min-width: 168px;
+          }
+          .feature-grid--three .feature-card {
+            min-width: 200px;
+          }
           .feature-summary {
             grid-template-columns: 1fr;
             gap: 12px;
@@ -777,31 +912,39 @@
 </div>
 
 <section class="b2c-proof-section">
-    <h2 class="section-title fade-up">오운완 서비스<br>센터에 도입해보시는 건 어떠세요?</h2>
+    <h2 class="section-title fade-up">우리 센터만의 참여 문화를<br>오운완으로 만들어보세요.</h2>
     <p class="section-desc b2c-proof-copy fade-up">
-        회원이 운동을 인증하고 기록을 남기며,<br>자연스럽게 참여하는 서비스예요.
+        참여부터 인증, 랭킹, 소통까지.<br>회원이 더 자주 찾는 센터 운영을 시작할 수 있어요.
     </p>
-    <div class="b2c-proof-grid">
-        <div class="b2c-proof-item fade-up">
-            <img src="images/img_1.jpeg" alt="오운완 B2C 서비스 운동 인증 사진 1">
+    <div class="b2c-proof-feature">
+        <div class="b2c-proof-feature-copy fade-up">
+            <h3 class="b2c-proof-feature-title">QR코드로 바로 참여</h3>
+            <p class="b2c-proof-feature-intro">
+                카운터 위나 거울 옆에 QR만 두세요.<br>
+                센터는 추가 인력 필요없이,<br>
+                회원이 알아서 참여해요.
+            </p>
         </div>
-        <div class="b2c-proof-item fade-up" style="animation-delay:0.08s">
-            <img src="images/img_2.jpeg" alt="오운완 B2C 서비스 운동 인증 사진 2">
+        <div class="b2c-proof-feature-visual fade-up" style="animation-delay:0.08s">
+            <img src="images/qr_enter.png" alt="센터 QR로 앱 설치 없이 바로 참여하는 오운완 서비스 화면">
         </div>
-        <div class="b2c-proof-item fade-up" style="animation-delay:0.16s">
-            <img src="images/img_3.jpeg" alt="오운완 B2C 서비스 운동 인증 사진 3">
+    </div>
+    <div class="b2c-proof-feature">
+        <div class="b2c-proof-feature-copy fade-up">
+            <h3 class="b2c-proof-feature-title">센터 내 운동인증</h3>
+            <p class="b2c-proof-feature-intro">
+                사진 인증을 통해 회원들의 참여가 이어지도록 하세요.<br>
+                단순히 혼자 기록하고 끝나는 것이 아니라,<br>
+                같은 센터 회원들과 서로 참여하는 구조 만들어요.
+            </p>
         </div>
-        <div class="b2c-proof-item fade-up" style="animation-delay:0.24s">
-            <img src="images/img_4.jpeg" alt="오운완 B2C 서비스 운동 인증 사진 4">
-        </div>
-        <div class="b2c-proof-item fade-up" style="animation-delay:0.32s">
-            <img src="images/img_5.jpeg" alt="오운완 B2C 서비스 운동 인증 사진 5">
-        </div>
-        <div class="b2c-proof-item fade-up" style="animation-delay:0.4s">
-            <img src="images/img_6.jpeg" alt="오운완 B2C 서비스 운동 인증 사진 6">
+        <div class="b2c-proof-feature-visual fade-up" style="animation-delay:0.08s">
+            <img src="images/certification.png" alt="센터 QR로 앱 설치 없이 바로 참여하는 오운완 서비스 화면">
         </div>
     </div>
 </section>
+
+
 
 <section class="validation-section">
     <h2 class="section-title fade-up">모임 참여도는 개인 대비 <span class="validation-highlight">10배예요</span>
@@ -845,7 +988,7 @@
 <!-- FEATURES -->
 <section class="feature-overview-section">
     <div class="feature-tag tag-now fade-up">우선 제공</div>
-    <div class="feature-grid" style="margin-top: 8px;">
+    <div class="feature-grid feature-grid--six" style="margin-top: 8px;">
         <div class="feature-card fade-up">
             <div class="feature-icon">📲</div>
             <h4>QR 참여</h4>
@@ -879,7 +1022,7 @@
     </div>
 
     <div class="feature-tag tag-soon fade-up" style="margin-top: 32px;">추후 확장</div>
-    <div class="feature-grid" style="margin-top: 8px;">
+    <div class="feature-grid feature-grid--three" style="margin-top: 8px;">
         <div class="feature-card future fade-up">
             <div class="feature-icon">🎯</div>
             <h4>챌린지</h4>
