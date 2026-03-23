@@ -440,6 +440,18 @@
           border-radius: 22px;
           border: 1px solid rgba(255,255,255,0.06);
         }
+        .b2c-proof-feature-gallery {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 14px;
+          align-items: start;
+        }
+        .b2c-proof-feature-gallery-item {
+          margin: 0;
+        }
+        .b2c-proof-feature-gallery img {
+          border-radius: 0;
+        }
 
         /* VALIDATION */
         .validation-section {
@@ -731,6 +743,10 @@
             max-width: 760px;
             gap: 22px;
           }
+          .b2c-proof-feature-gallery {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
         }
 
         @media (max-width: 700px) {
@@ -931,15 +947,23 @@
     </div>
     <div class="b2c-proof-feature">
         <div class="b2c-proof-feature-copy fade-up">
-            <h3 class="b2c-proof-feature-title">센터 내 운동인증</h3>
+            <h3 class="b2c-proof-feature-title">운동 인증이 참여 문화로 이어집니다</h3>
             <p class="b2c-proof-feature-intro">
-                사진 인증을 통해 회원들의 참여가 이어지도록 하세요.<br>
-                단순히 혼자 기록하고 끝나는 것이 아니라,<br>
-                같은 센터 회원들과 서로 참여하는 구조 만들어요.
+                오늘의 인증이 피드가 되고,<br>
+                꾸준함은 랭킹이 되고,<br>
+                결과는 기록으로 남습니다.
             </p>
         </div>
-        <div class="b2c-proof-feature-visual fade-up" style="animation-delay:0.08s">
-            <img src="images/certification.png" alt="센터 QR로 앱 설치 없이 바로 참여하는 오운완 서비스 화면">
+        <div class="b2c-proof-feature-visual b2c-proof-feature-gallery fade-up" style="animation-delay:0.08s">
+            <figure class="b2c-proof-feature-gallery-item">
+                <img src="images/f_1.png" alt="운동 인증 피드 화면">
+            </figure>
+            <figure class="b2c-proof-feature-gallery-item">
+                <img src="images/f_2.png" alt="인증 랭킹 화면">
+            </figure>
+            <figure class="b2c-proof-feature-gallery-item">
+                <img src="images/f_3.png" alt="인증 기록 화면">
+            </figure>
         </div>
     </div>
 </section>
