@@ -1,634 +1,1280 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오운완-우리 센터 참여 서비스</title>
-    <link rel="icon" href="images/oww_icon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>오운완 — 피트니스 센터 회원 유지 솔루션</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+          --navy: #000000;
+          --navy-mid: #000000;
+          --navy-light: #000000;
+          --accent: #3b9eff;
+          --accent-dim: #1a6fc4;
+          --white: #ffffff;
+          --off-white: #f4f6f9;
+          --text-muted: #8a9ab0;
+          --text-secondary: #c5d0de;
+          --border: rgba(255,255,255,0.08);
+          --font: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Pretendard', sans-serif;
-            background:
-                radial-gradient(900px 420px at 10% -10%, rgba(148, 163, 184, 0.15), transparent 60%),
-                radial-gradient(900px 420px at 90% 0%, rgba(16, 185, 129, 0.08), transparent 62%),
-                #09090b;
-            color: #e2e8f0;
+          font-family: var(--font);
+          background: var(--navy);
+          color: var(--white);
+          line-height: 1.7;
+          -webkit-font-smoothing: antialiased;
         }
 
-        .highlight-red {
-            color: #f87171;
+        /* NAV */
+        nav {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+          padding: 18px 48px;
+          display: flex; justify-content: space-between; align-items: center;
+          background: rgba(0,0,0,0.92);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid var(--border);
+        }
+        .nav-logo { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+        .nav-logo span { color: var(--accent); }
+        .nav-cta {
+          background: var(--accent); color: var(--white);
+          padding: 9px 20px; border-radius: 8px;
+          font-size: 13px; font-weight: 500; text-decoration: none;
+          transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--accent-dim); }
+
+        /* SECTIONS */
+        section { padding: 100px 48px; max-width: 1000px; margin: 0 auto; }
+        .section-label {
+          font-size: 11px; font-weight: 500; letter-spacing: 0.15em;
+          color: var(--accent); text-transform: uppercase; margin-bottom: 20px;
         }
 
-        .bg-kakao {
-            background-color: #FEE500;
-            color: #111827;
+        /* SERVICE INTRO */
+        .service-intro {
+          min-height: 100vh;
+          display: flex;
+          align-items: stretch;
+          max-width: 100%;
+          padding: 0;
+          position: relative;
+          overflow: hidden;
+          background: linear-gradient(180deg, #07111c 0%, #0b1827 54%, #102540 100%);
         }
-
-        .card-shadow {
-            box-shadow: 0 14px 30px -12px rgba(15, 23, 42, 0.6);
+        .service-intro::before {
+          content: '';
+          position: absolute; top: -140px; left: -80px;
+          width: 420px; height: 420px;
+          background: radial-gradient(circle, rgba(59,158,255,0.16) 0%, transparent 72%);
+          pointer-events: none;
         }
-
-        .flow-shell {
-            max-width: 22rem;
-            margin: 0 auto;
-            padding: 0.9rem;
-            border: 1px solid rgba(250, 204, 21, 0.28);
-            border-radius: 1.25rem;
+        .service-intro::after {
+          content: '';
+          position: absolute; right: -100px; bottom: -180px;
+          width: 500px; height: 500px;
+          background: radial-gradient(circle, rgba(59,158,255,0.1) 0%, transparent 70%);
+          pointer-events: none;
         }
-
-        .flow-step {
-            position: relative;
-            border: 1px solid rgba(161, 161, 170, 0.35);
-            border-radius: 0.95rem;
-            padding: 0.85rem 0.9rem 0.75rem 3.2rem;
-            text-align: left;
+        .service-intro-inner {
+          max-width: 1000px; margin: 0 auto; width: 100%;
+          min-height: 100vh;
+          padding: 148px 48px 0;
+          display: flex; flex-direction: column;
+          justify-content: space-between;
+          gap: 32px; align-items: center;
+          text-align: center;
+          position: relative; z-index: 1;
         }
-
-        .flow-step-no {
-            position: absolute;
-            left: 0.75rem;
-            top: 0.8rem;
-            width: 1.7rem;
-            height: 1.7rem;
-            border-radius: 9999px;
-            border: 1px solid rgba(250, 204, 21, 0.55);
-            background: rgba(9, 9, 11, 0.95);
-            color: #fde047;
-            font-size: 0.75rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .service-copy-block { max-width: 760px; }
+        .service-copy {
+          display: flex; flex-direction: column; align-items: center;
+          gap: 12px; margin: 0;
         }
-
-        .flow-step-title {
-            display: flex;
-            align-items: center;
-            gap: 0.45rem;
-            color: #f4f4f5;
-            font-size: 0.95rem;
-            font-weight: 700;
+        .service-copy .service-copy-point {
+          font-size: clamp(32px, 3vw, 40px);
+          font-weight: 700; line-height: 1.2;
+          letter-spacing: -0.04em; color: var(--accent);
         }
-
-        .flow-step-icon {
-            width: 1.6rem;
-            height: 1.6rem;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .service-copy .service-copy-main {
+          font-size: clamp(52px, 6vw, 60px);
+          font-weight: 800; line-height: 1.06;
+          letter-spacing: -0.06em; color: var(--white);
         }
-
-        .flow-step-desc {
-            margin-top: 0.35rem;
-            color: #a1a1aa;
-            font-size: 0.78rem;
-            line-height: 1.4;
+        .service-mock {
+          width: 100%;
+          max-width: 360px;
+          height: min(42vh, 420px);
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          overflow: hidden;
+          border-radius: 32px 32px 0 0;
         }
-
-        .flow-connector {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.1rem;
-            height: 1.5rem;
-            color: rgba(250, 204, 21, 0.9);
-            font-size: 0.8rem;
+        .service-preview-image {
+          display: block;
+          width: 100%;
+          height: auto;
+          filter: drop-shadow(0 32px 72px rgba(2, 6, 23, 0.38));
         }
-
-        .flow-connector::before {
-            content: "";
-            width: 1px;
-            height: 0.85rem;
-            background: linear-gradient(180deg, rgba(250, 204, 21, 0.85), rgba(250, 204, 21, 0.2));
+        .service-preview-full-section {
+          max-width: 100%;
+          padding-top: 16px;
+          padding-bottom: 64px;
         }
-
-        .flow-result {
-            margin-top: 0.75rem;
-            border: 1px solid rgba(52, 211, 153, 0.35);
-            border-radius: 0.9rem;
-            padding: 0.75rem 0.9rem;
-            text-align: left;
-            color: #d1fae5;
-            font-size: 0.82rem;
-            line-height: 1.45;
+        .feature-overview-section {
+          padding-top: 28px;
+          max-width: 1360px;
         }
-
-        .flow-result b {
-            color: #6ee7b7;
+        .service-preview-heading {
+          margin-bottom: 28px;
+          text-align: center;
+          font-size: clamp(22px, 3.4vw, 32px);
+          font-weight: 700;
+          letter-spacing: -0.04em;
+          line-height: 1.35;
+          color: var(--white);
         }
-
-        .auto-scroll-gallery {
-            overflow: hidden;
-            padding: 0.25rem 0;
-            margin-bottom: 1rem;
-            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        .service-preview-scroll-stage {
+          position: relative;
+          max-width: 520px;
+          height: clamp(1180px, 170vh, 1380px);
+          margin: 0 auto;
         }
-
-        .auto-scroll-track {
-            display: flex;
-            width: max-content;
-            animation: auto-scroll 30s linear infinite;
+        .service-preview-full-frame {
+          --preview-window-height: min(78vh, 760px);
+          --preview-sticky-top: clamp(88px, 12vh, 132px);
+          max-width: 376px;
+          height: var(--preview-window-height);
+          margin: 0 auto;
+          position: sticky;
+          top: var(--preview-sticky-top);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
-
-        .auto-scroll-group {
-            display: flex;
-            gap: 0.75rem;
-            padding-right: 0.75rem;
+        .service-preview-device {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          padding: 10px;
+          border-radius: 42px;
+          background: linear-gradient(180deg, #24262b 0%, #0b0c0e 100%);
+          box-shadow: 0 30px 80px rgba(2, 6, 23, 0.42);
         }
-
-        .auto-scroll-group img {
-            width: 10rem;
-            height: 14rem;
-            object-fit: cover;
-            border-radius: 0.9rem;
-            border: 1px solid #3f3f46;
-            flex-shrink: 0;
-            box-shadow: 0 12px 20px -14px rgba(15, 23, 42, 0.9);
+        .service-preview-device::before {
+          content: '';
+          position: absolute;
+          top: 12px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 34%;
+          height: 24px;
+          border-radius: 999px;
+          background: #050506;
+          z-index: 3;
         }
-
-        @media (hover: hover) and (pointer: fine) {
-            .auto-scroll-gallery:hover .auto-scroll-track {
-                animation-play-state: paused;
-            }
+        .service-preview-device::after {
+          content: '';
+          position: absolute;
+          top: 18px;
+          left: calc(50% + 44px);
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: rgba(255,255,255,0.12);
+          z-index: 3;
         }
-
-        .product-3d-stage {
-            perspective: 1100px;
-            display: flex;
-            justify-content: center;
-            margin: 0 auto 1.25rem;
+        .service-preview-screen {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          border-radius: 34px;
+          background: #fff;
         }
-
-        .rotating-product {
-            width: min(50%, 12rem);
-            transform-origin: center center;
-            transform-style: preserve-3d;
-            filter: drop-shadow(0 18px 30px rgba(20, 184, 166, 0.2));
-            will-change: transform;
-            cursor: grab;
-            touch-action: pan-y;
-            user-select: none;
-            -webkit-user-drag: none;
+        .service-preview-screen::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(2, 6, 23, 0.04) 0%, rgba(2, 6, 23, 0) 18%, rgba(2, 6, 23, 0) 82%, rgba(2, 6, 23, 0.12) 100%);
         }
-
-        .compare-bar {
-            transform-origin: bottom center;
-            transform: scaleY(0);
-            opacity: 0.45;
-            will-change: transform, opacity;
+        .service-preview-scroll-image {
+          display: block;
+          width: 100%;
+          height: auto;
+          will-change: transform;
+          transform: translateY(0);
         }
-
-        .compare-bar-delay-1 {
-            animation-delay: 0.08s;
-        }
-
-        .compare-bar-delay-2 {
-            animation-delay: 0.25s;
-        }
-
-        .compare-chart.is-visible .compare-bar {
-            animation: bar-grow-up 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-
-        @keyframes auto-scroll {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-50%);
-            }
-        }
-
-        @keyframes bar-grow-up {
-            from {
-                transform: scaleY(0);
-                opacity: 0.45;
-            }
-
-            to {
-                transform: scaleY(1);
-                opacity: 1;
-            }
-        }
-
         @media (prefers-reduced-motion: reduce) {
-            .compare-bar {
-                transform: none;
-                opacity: 1;
-            }
-
-            .compare-chart.is-visible .compare-bar {
-                animation: none;
-            }
+          .service-preview-scroll-image {
+            transform: translateY(0);
+          }
         }
 
-        .rotating-product.is-dragging {
-            cursor: grabbing;
+        /* HERO */
+        .hero-wrap {
+          min-height: 100vh; display: flex; align-items: center;
+          max-width: 100%; padding: 0;
+          background: #000;
+          position: relative; overflow: hidden;
+        }
+        .hero-wrap::before {
+          content: '';
+          position: absolute; inset: 0;
+          background: none;
+          pointer-events: none;
+        }
+        .hero-wrap::after {
+          content: '';
+          position: absolute; top: -180px; right: -80px;
+          width: 560px; height: 560px;
+          background: radial-gradient(circle, rgba(59,158,255,0.16) 0%, transparent 72%);
+          pointer-events: none;
+        }
+        .hero-inner {
+          max-width: 1320px; margin: 0 auto; padding: 160px 20px 100px; width: 100%;
+          position: relative; z-index: 1;
+        }
+        .hero-title {
+          font-size: clamp(34px, 5vw, 56px);
+          font-weight: 700;
+          line-height: 1.2;
+          letter-spacing: -0.04em;
+          margin-bottom: 36px;
+          max-width: 760px;
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .hero-problem-list {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 20px;
+          width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .hero-problem-item {
+          text-align: center;
+        }
+        .hero-problem-image {
+          color: var(--accent);
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          margin-bottom: 18px;
+        }
+        .hero-problem-image--photo {
+          aspect-ratio: 16 / 9;
+          border-radius: 18px;
+          overflow: hidden;
+          margin-bottom: 18px;
+        }
+        .hero-problem-image--photo img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+        }
+        .hero-problem-title {
+          font-size: clamp(16px, 3vw, 24px);
+          font-weight: 700;
+          line-height: 1.25;
+          letter-spacing: -0.03em;
+          color: var(--white);
+        }
+        .btn-primary {
+          background: var(--accent); color: var(--white);
+          padding: 14px 28px; border-radius: 10px;
+          font-size: 15px; font-weight: 500; text-decoration: none;
+          transition: all 0.2s; display: inline-block;
+        }
+        .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); }
+
+        /* B2C PROOF */
+        .b2c-proof-section {
+          max-width: 1240px;
+          padding-top: 56px;
+          padding-bottom: 56px;
+        }
+        .b2c-proof-section .section-label,
+        .b2c-proof-section .section-title,
+        .b2c-proof-section .section-desc {
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .b2c-proof-chips {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+          margin-bottom: 18px;
+        }
+        .b2c-proof-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 14px;
+          border-radius: 999px;
+          border: 1px solid var(--border);
+          background: rgba(255,255,255,0.04);
+          color: var(--white);
+          font-size: 14px;
+          line-height: 1;
+          white-space: nowrap;
+        }
+        .b2c-proof-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 240px));
+          justify-content: center;
+          align-items: flex-start;
+          gap: 16px 24px;
+          max-width: 860px;
+          margin: 28px auto 0;
+        }
+        .b2c-proof-item {
+          width: 100%;
+        }
+        .b2c-proof-item img {
+          display: block;
+          width: 100%;
+          height: auto;
+          border-radius: 18px;
+        }
+        .b2c-proof-copy {
+          margin-top: 20px;
+          color: var(--white);
+        }
+        .b2c-proof-feature {
+          max-width: 1120px;
+          margin: 32px auto 0;
+          padding: 28px;
+          display: grid;
+          grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+          gap: 28px;
+          align-items: center;
+          border-radius: 28px;
+        }
+        .b2c-proof-feature-copy {
+          text-align: left;
+        }
+        .b2c-proof-feature-kicker {
+          display: inline-flex;
+          align-items: center;
+          padding: 7px 12px;
+          border-radius: 999px;
+          border: 1px solid rgba(59,158,255,0.24);
+          background: rgba(59,158,255,0.08);
+          color: #8dc5ff;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .b2c-proof-feature-title {
+          margin-top: 16px;
+          font-size: clamp(28px, 3.2vw, 42px);
+          font-weight: 700;
+          line-height: 1.18;
+          letter-spacing: -0.04em;
+          color: var(--white);
+        }
+        .b2c-proof-feature-intro {
+          margin-top: 14px;
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 1.65;
+          letter-spacing: -0.03em;
+          color: #e8f1ff;
+        }
+        .b2c-proof-feature-body {
+          margin-top: 16px;
+          font-size: 15px;
+          line-height: 1.8;
+          color: var(--text-secondary);
+        }
+        .b2c-proof-feature-list {
+          list-style: none;
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .b2c-proof-feature-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          padding: 12px 14px;
+          border-radius: 16px;
+          background: rgba(255,255,255,0.03);
+          color: var(--white);
+          font-size: 14px;
+          line-height: 1.6;
+        }
+        .b2c-proof-feature-list li::before {
+          content: '•';
+          color: var(--accent);
+          font-size: 18px;
+          line-height: 1;
+          margin-top: 1px;
+          flex-shrink: 0;
+        }
+        .b2c-proof-feature-visual {
+          min-width: 0;
+        }
+        .b2c-proof-feature-visual img {
+          display: block;
+          width: 100%;
+          height: auto;
+          border-radius: 22px;
+          border: 1px solid rgba(255,255,255,0.06);
+        }
+        .b2c-proof-feature-gallery {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 14px;
+          align-items: start;
+        }
+        .b2c-proof-feature-gallery-item {
+          margin: 0;
+        }
+        .b2c-proof-feature-gallery img {
+          border-radius: 0;
+        }
+
+        /* VALIDATION */
+        .validation-section {
+          max-width: 760px;
+          padding-top: 8px;
+          padding-bottom: 40px;
+        }
+        .validation-section .section-title,
+        .validation-section .section-desc {
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .validation-highlight {
+          color: #7dd3fc;
+        }
+        .validation-highlight-strong {
+          color: #93c5fd;
+          font-weight: 800;
+        }
+        .validation-copy {
+          margin-top: 16px;
+          font-size: 16px;
+          line-height: 1.7;
+          color: var(--text-secondary);
+        }
+        .validation-copy-lead {
+          display: inline-block;
+          margin-bottom: 8px;
+          font-size: clamp(26px, 4.2vw, 36px);
+          line-height: 1.15;
+          letter-spacing: -0.04em;
+          color: #e0f2fe;
+        }
+        .validation-chart {
+          max-width: 520px;
+          margin: 12px auto 0;
+          padding: 20px 16px;
+          border-radius: 18px;
+          border: 1px solid rgba(125,211,252,0.24);
+          background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+          box-shadow: 0 18px 36px rgba(2, 6, 23, 0.36);
+        }
+        .validation-chart-label {
+          text-align: center;
+          font-size: 12px;
+          letter-spacing: 0.06em;
+          color: #7dd3fc;
+        }
+        .validation-chart-bars {
+          margin-top: 16px;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          gap: 24px;
+        }
+        .validation-chart-item {
+          width: 80px;
+          text-align: center;
+        }
+        .validation-chart-item p {
+          margin-bottom: 8px;
+          line-height: 1.3;
+        }
+        .validation-chart-item-label {
+          font-size: 12px;
+          font-weight: 600;
+          color: #94a3b8;
+        }
+        .validation-chart-item-label--strong {
+          font-size: 14px;
+          font-weight: 800;
+          color: #e0f2fe;
+        }
+        .compare-bar {
+          width: 100%;
+          border-radius: 10px 10px 0 0;
+          transform-origin: bottom;
+          transform: scaleY(0);
+          animation: compare-grow 0.8s ease forwards;
+        }
+        .compare-bar--personal {
+          height: 32px;
+          border: 1px solid rgba(148,163,184,0.32);
+          background: linear-gradient(to top, rgba(71,85,105,0.48), rgba(148,163,184,0.72));
+        }
+        .compare-bar--group {
+          height: 160px;
+          border: 1px solid rgba(147,197,253,0.58);
+          background: linear-gradient(to top, rgba(37,99,235,0.58), rgba(125,211,252,0.98));
+          box-shadow: 0 0 28px rgba(59,130,246,0.3);
+        }
+        .compare-bar-delay-1 {
+          animation-delay: 0.1s;
+        }
+        .compare-bar-delay-2 {
+          animation-delay: 0.2s;
+        }
+        .validation-chart-summary {
+          margin-top: 16px;
+          text-align: center;
+          font-size: 15px;
+          font-weight: 700;
+          color: #bbf7d0;
+        }
+        @keyframes compare-grow {
+          from {
+            transform: scaleY(0);
+          }
+          to {
+            transform: scaleY(1);
+          }
+        }
+
+        /* FLOW */
+        .flow-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
+        .flow-item {
+          display: flex; gap: 28px; align-items: flex-start;
+          padding: 28px 0;
+          border-bottom: 1px solid var(--border);
+        }
+        .flow-item:last-child { border-bottom: none; }
+        .flow-step-num {
+          width: 40px; height: 40px; border-radius: 10px;
+          background: rgba(59,158,255,0.1); border: 1px solid rgba(59,158,255,0.2);
+          color: var(--accent); font-size: 14px; font-weight: 700;
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0; margin-top: 2px;
+        }
+        .flow-content h4 { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
+        .flow-content p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+        /* FEATURES */
+        .feature-grid {
+          display: flex;
+          gap: 12px;
+          margin-top: 40px;
+          overflow-x: auto;
+          padding-bottom: 10px;
+          scroll-snap-type: x proximity;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255,255,255,0.18) transparent;
+        }
+        .feature-grid::-webkit-scrollbar {
+          height: 8px;
+        }
+        .feature-grid::-webkit-scrollbar-thumb {
+          background: rgba(255,255,255,0.18);
+          border-radius: 999px;
+        }
+        .feature-grid--six .feature-card {
+          flex: 0 0 calc((100% - 60px) / 6);
+          min-width: 190px;
+        }
+        .feature-grid--three .feature-card {
+          flex: 0 0 calc((100% - 24px) / 3);
+          min-width: 220px;
+        }
+        .feature-card {
+          background: var(--navy-mid); border: 1px solid var(--border);
+          border-radius: 12px; padding: 20px 22px;
+          scroll-snap-align: start;
+        }
+        .feature-icon {
+          width: 36px; height: 36px; border-radius: 8px;
+          background: rgba(59,158,255,0.1);
+          display: flex; align-items: center; justify-content: center;
+          margin-bottom: 12px; font-size: 16px;
+        }
+        .feature-card h4 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+        .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+        .feature-card.future {
+          border-style: dashed; opacity: 0.6;
+        }
+        .feature-tag {
+          display: inline-block; font-size: 10px; font-weight: 500;
+          padding: 2px 8px; border-radius: 4px; margin-bottom: 16px;
+          letter-spacing: 0.05em;
+        }
+        .tag-now { background: rgba(59,158,255,0.15); color: var(--accent); }
+        .tag-soon { background: rgba(138,154,176,0.15); color: var(--text-muted); }
+        .feature-summary {
+          margin-top: 40px;
+          padding-top: 28px;
+          border-top: 1px solid rgba(255,255,255,0.12);
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+          gap: 24px 44px;
+          align-items: center;
+        }
+        .feature-summary-kicker {
+          grid-column: 1 / -1;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--accent);
+        }
+        .feature-summary h3 {
+          font-size: clamp(20px, 2.6vw, 28px);
+          font-weight: 600;
+          letter-spacing: -0.03em;
+          line-height: 1.4;
+        }
+        .feature-summary-content {
+          max-width: 520px;
+        }
+        .feature-summary-body p {
+          font-size: 14px;
+          color: var(--text-muted);
+          line-height: 1.75;
+        }
+        .feature-summary-body p + p {
+          margin-top: 12px;
+        }
+        .feature-summary-visual {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .feature-summary-shot-frame {
+          width: min(100%, 360px);
+        }
+        .feature-summary-shot {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+
+        /* EFFECTS */
+        .effect-list { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; }
+        .effect-item {
+          display: flex; gap: 20px; align-items: flex-start;
+          background: var(--navy-mid); border: 1px solid var(--border);
+          border-radius: 12px; padding: 20px 24px;
+          transition: border-color 0.2s;
+        }
+        .effect-item:hover { border-color: rgba(59,158,255,0.2); }
+        .effect-icon-box {
+          width: 42px; height: 42px; border-radius: 10px;
+          background: rgba(59,158,255,0.1);
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0; font-size: 18px;
+        }
+        .effect-body h4 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+        .effect-body p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+        /* CTA */
+        .cta-section {
+          text-align: center;
+          background: #000;
+          border-top: 1px solid var(--border);
+          padding: 100px 48px;
+        }
+        .cta-section h2 {
+          font-size: clamp(24px, 4vw, 40px);
+          font-weight: 700; letter-spacing: -0.03em;
+          margin-bottom: 16px; line-height: 1.3;
+        }
+        .cta-section h2 em { color: var(--accent); font-style: normal; }
+        .cta-section p { font-size: 16px; color: var(--text-muted); margin-bottom: 40px; }
+
+        /* SECTION HEADING */
+        h2.section-title {
+          font-size: clamp(24px, 4vw, 38px);
+          font-weight: 700; letter-spacing: -0.03em; line-height: 1.3;
+          margin-bottom: 14px;
+        }
+        .section-desc { font-size: 16px; color: var(--text-muted); max-width: 520px; line-height: 1.75; }
+
+        /* DIVIDER */
+        .divider { border: none; border-top: 1px solid var(--border); }
+
+        /* ANIMATE */
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 960px) {
+          .hero-problem-list {
+            grid-template-columns: 1fr;
+            gap: 14px;
+          }
+          .hero-problem-image--photo {
+            aspect-ratio: 1 / 1;
+          }
+          .b2c-proof-feature {
+            grid-template-columns: 1fr;
+            max-width: 760px;
+            gap: 22px;
+          }
+          .b2c-proof-feature-gallery {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+        }
+
+        @media (max-width: 700px) {
+          nav { padding: 16px 20px; }
+          section { padding: 72px 20px; }
+          .service-intro-inner {
+            min-height: 100vh;
+            padding: 120px 20px 0;
+            gap: 24px;
+          }
+          .service-copy-block { max-width: none; }
+          .service-copy { gap: 10px; }
+          .service-copy .service-copy-point { font-size: clamp(24px, 6.8vw, 30px); }
+          .service-copy .service-copy-main { font-size: clamp(32px, 10vw, 40px); }
+          .service-mock {
+            max-width: 280px;
+            height: min(34vh, 300px);
+          }
+          .service-preview-full-section {
+            padding-top: 0;
+            padding-bottom: 24px;
+          }
+          .feature-overview-section {
+            padding-top: 16px;
+          }
+          .service-preview-heading {
+            margin-bottom: 20px;
+            font-size: clamp(20px, 6.2vw, 26px);
+          }
+          .service-preview-scroll-stage {
+            max-width: 280px;
+            height: clamp(900px, 132vh, 1080px);
+          }
+          .service-preview-full-frame {
+            max-width: 280px;
+            --preview-window-height: min(58vh, 520px);
+            --preview-sticky-top: 88px;
+          }
+          .service-preview-device {
+            padding: 8px;
+            border-radius: 34px;
+          }
+          .service-preview-device::before {
+            top: 10px;
+            height: 20px;
+          }
+          .service-preview-device::after {
+            top: 15px;
+            left: calc(50% + 34px);
+            width: 10px;
+            height: 10px;
+          }
+          .service-preview-screen {
+            border-radius: 28px;
+          }
+          .hero-inner { padding: 120px 20px 72px; }
+          .hero-wrap { background-position: 62% center; }
+          .hero-title { margin-bottom: 32px; }
+          .b2c-proof-section {
+            padding-top: 44px;
+            padding-bottom: 44px;
+          }
+          .validation-section {
+            padding-top: 0;
+            padding-bottom: 32px;
+          }
+          .b2c-proof-feature {
+            margin-top: 24px;
+            padding: 18px;
+            border-radius: 22px;
+            gap: 18px;
+          }
+          .b2c-proof-feature-title {
+            margin-top: 14px;
+            font-size: clamp(24px, 7vw, 32px);
+          }
+          .b2c-proof-feature-intro {
+            font-size: 16px;
+          }
+          .b2c-proof-feature-body {
+            font-size: 14px;
+            line-height: 1.72;
+          }
+          .b2c-proof-feature-list {
+            margin-top: 16px;
+          }
+          .b2c-proof-feature-list li {
+            padding: 11px 12px;
+            font-size: 13px;
+          }
+          .validation-chart {
+            padding: 18px 12px;
+          }
+          .validation-chart-bars {
+            gap: 18px;
+          }
+          .validation-chart-item {
+            width: 72px;
+          }
+          .compare-bar--group {
+            height: 136px;
+          }
+          .hero-problem-title { font-size: clamp(12px, 7vw, 18px); }
+          .feature-grid {
+            padding-bottom: 6px;
+          }
+          .feature-grid--six .feature-card {
+            min-width: 168px;
+          }
+          .feature-grid--three .feature-card {
+            min-width: 200px;
+          }
+          .feature-summary {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding-top: 24px;
+          }
+          .feature-summary-visual {
+            margin-top: 6px;
+          }
+          .feature-summary-shot-frame {
+            width: min(100%, 300px);
+          }
+          .cta-section { padding: 72px 20px; }
         }
     </style>
 </head>
-<body class="max-w-md mx-auto min-h-screen bg-zinc-950 border-x border-zinc-800">
+<body>
 
+<!-- NAV -->
+<nav>
+    <div class="nav-logo">오운<span>완</span></div>
+    <a href="#cta" class="nav-cta">도입 문의</a>
+</nav>
 
-<main class="px-6 space-y-10">
-    <section class="py-12 text-center">
-        <p class="text-white leading-relaxed mt-2 mb-2">회원들이 알아서 참여해요.</p>
+<!-- SERVICE INTRO -->
+<section class="service-intro">
+    <div class="service-intro-inner">
+        <div class="service-copy-block">
+            <h3 class="service-copy fade-up" style="transition-delay:0.1s">
+                <span class="service-copy-point">운동 인증부터 참여 유지까지,</span>
+                <span class="service-copy-main">회원과 센터를 연결하는 서비스</span>
+            </h3>
+        </div>
 
-        <h1 class="text-2xl font-extrabold leading-tight mb-6 text-zinc-50">
-            운동인증부터 랭킹·챌린지까지<br>
-            <span class="text-yellow-300">QR코드 하나만 붙이세요.</span>
+        <div class="service-mock fade-up" style="transition-delay:0.16s">
+            <img src="images/service_img.png" alt="오운완 센터 서비스 랜딩 목업" class="service-preview-image">
+        </div>
+    </div>
+</section>
+
+<!-- HERO -->
+<div class="hero-wrap" id="main-hero">
+    <div class="hero-inner">
+        <h1 class="hero-title fade-up" style="animation-delay:0.1s">
+            사장님,<br>이런 문제 겪고 있지 않나요?
         </h1>
-
-        <div class="auto-scroll-gallery" aria-label="센터 이미지 자동 스크롤">
-            <div class="auto-scroll-track">
-                <div class="auto-scroll-group">
-                    <img src="images/img_1.jpeg" alt="센터 운동 이미지 1">
-                    <img src="images/img_2.jpeg" alt="센터 운동 이미지 2">
-                    <img src="images/img_3.jpeg" alt="센터 운동 이미지 3">
-                    <img src="images/img_4.jpeg" alt="센터 운동 이미지 4">
-                    <img src="images/img_5.jpeg" alt="센터 운동 이미지 5">
-                    <img src="images/img_6.jpeg" alt="센터 운동 이미지 6">
+        <div class="hero-problem-list fade-up" style="animation-delay:0.18s">
+            <div class="hero-problem-item">
+                <div class="hero-problem-image hero-problem-image--photo">
+                    <img src="images/p_1.png" alt="짐 내 멤버십 챌린지에 참여 중인 회원들">
                 </div>
-                <div class="auto-scroll-group" aria-hidden="true">
-                    <img src="images/img_1.jpeg" alt="">
-                    <img src="images/img_2.jpeg" alt="">
-                    <img src="images/img_3.jpeg" alt="">
-                    <img src="images/img_4.jpeg" alt="">
-                    <img src="images/img_5.jpeg" alt="">
-                    <img src="images/img_6.jpeg" alt="">
+                <div class="hero-problem-title">회원 수는 계속 줄어들고</div>
+            </div>
+            <div class="hero-problem-item">
+                <div class="hero-problem-image hero-problem-image--photo">
+                    <img src="images/p_2.png" alt="짐 내 멤버십 챌린지에 참여 중인 회원들">
                 </div>
+                <div class="hero-problem-title">경쟁속에 차별화는 안 되고</div>
             </div>
-        </div>
-
-        <p class="inline-flex items-center justify-center rounded-full border border-amber-300/40 bg-black px-4 py-2 text-sm text-amber-200 mb-4">
-            🎁 사전 등록하고 무료로 이용하세요.
-        </p>
-
-        <a href="https://open.kakao.com/o/gnZCZkii" target="_blank"
-           class="bg-kakao w-full py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform shadow-xl shadow-yellow-500/20">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg"
-                 class="w-6 h-6" alt="kakao">
-            사전등록 오픈채팅방
-        </a>
-    </section>
-
-    <section class="py-4">
-        <h2 class="text-2xl font-bold text-zinc-100 mb-4 text-center">혹시 이런 고민 있나요?</h2>
-        <div class="space-y-3">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-200 font-medium text-center">
-                💸 신규 유입 광고비를 너무 많이 써요.
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-200 font-medium text-center">
-                ⚡ 등록은 하는데, 회원이 자꾸 안나와요.
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-200 font-medium text-center">
-                📍 점점 센터 분위기가 조용해져요.
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-200 font-medium text-center">
-                📉 회원이 언제 이탈하는지 모르겠어요.
-            </div>
-        </div>
-    </section>
-
-    <div class="product-3d-stage">
-        <img src="images/oww_x_fitness.png" alt="오운완 피트니스 센터 이미지" class="rotating-product">
-    </div>
-
-    <section class="py-4">
-        <div class="mt-2 text-center">
-            <p class="text-zinc-100 text-2xl font-extrabold leading-snug tracking-tight">센터 내 <span
-                    class="text-yellow-300 font-bold"> 회원 참여
-                서비스가</span><br>필요할 때입니다.</p>
-            <p class="mt-6 text-zinc-300 leading-relaxed mb-4"></p>
-            <div class="space-y-5">
-                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
-                    <h3 class="font-bold text-lg text-zinc-100">📸 운동 인증</h3>
-                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">센터에서 운동한 사진을 피드로 인증하고<br>좋아요/댓글로
-                        서로 반응할 수 있어요</p>
+            <div class="hero-problem-item">
+                <div class="hero-problem-image hero-problem-image--photo">
+                    <img src="images/p_3.png" alt="짐 내 멤버십 챌린지에 참여 중인 회원들">
                 </div>
-                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
-                    <h3 class="font-bold text-lg text-zinc-100">🏅 랭킹</h3>
-                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">센터 기준으로 인증 일 수 기반 월간 랭킹을
-                        제공해요.</p>
-                </div>
-                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
-                    <h3 class="font-bold text-lg text-zinc-100">🏁 챌린지</h3>
-                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">센터가 기간/미션을 정해 참여형 챌린지를 운영할
-                        수 있어요.</p>
-                </div>
-                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
-                    <h3 class="font-bold text-lg text-zinc-100">🎁 포인트/보상</h3>
-                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">인증/챌린지 달성에 따라 <br>센터 포인트를
-                        지급하고 보상으로 교환할 수 있어요.</p>
-                </div>
-                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
-                    <h3 class="font-bold text-lg text-zinc-100">📊 회원참여 대시보드</h3>
-                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">회원들의 인증/참여/활동 추이를 한눈에 볼 수
-                        있어서<br>이탈을 미리 잡을 수 있어요</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="py-2">
-
-        <h2 class="text-2xl font-extrabold leading-snug tracking-tight text-zinc-100 text-center">
-            오운완에서 <span class="text-yellow-300">검증</span>했어요.
-        </h2>
-
-        <p class="mt-4 text-center text-sm leading-relaxed text-zinc-300">
-            모임 참여 활성도는 개인 대비
-            <span class="font-extrabold text-emerald-300">10배</span>예요.
-        </p>
-
-        <div class="compare-chart mt-2 rounded-xl border border-emerald-300/30 bg-black/40 px-4 py-5">
-            <p class="text-center text-xs tracking-wide text-emerald-200">참여 활성도 비교</p>
-            <div class="mt-4 flex items-end justify-center gap-6 sm:gap-8" role="img"
-                 aria-label="모임 참여 활성도는 개인 대비 10배">
-                <div class="w-20 text-center">
-                    <p class="mb-2 text-xs font-semibold text-zinc-400">개인</p>
-                    <div class="compare-bar compare-bar-delay-1 h-8 rounded-t-md border border-zinc-500/40 bg-zinc-500/35"></div>
-                </div>
-                <div class="w-20 text-center">
-                    <p class="mb-2 text-sm font-extrabold text-emerald-300">모임</p>
-                    <div class="compare-bar compare-bar-delay-2 h-40 rounded-t-md border border-emerald-200/55 bg-gradient-to-t from-emerald-500/55 to-emerald-300/95 shadow-[0_0_24px_rgba(16,185,129,0.35)]"></div>
-                </div>
-            </div>
-            <p class="mt-4 text-center text-sm font-semibold text-emerald-200">모임 참여 활성도 = 개인 대비
-                10배</p>
-        </div>
-
-        <p class="mt-4 text-center text-sm leading-relaxed text-zinc-300">
-            이 참여 구조를 센터에 그대로 적용해<br>
-            <span class="font-semibold text-zinc-100">인증·반응·랭킹·보상</span>으로 회원 참여를 만들어요.
-        </p>
-
-    </section>
-
-    <section class="py-4">
-        <h2 class="text-2xl font-bold text-zinc-100 mb-6 text-center">회원은 센터 지속률이 높아져요</h2>
-        <p class="text-center text-zinc-400 text-sm mb-4">참여가 이어질수록 재방문이 자연스럽게 늘어나는 구조</p>
-
-        <div class="flow-shell">
-            <div class="flow-step">
-                <span class="flow-step-no">1</span>
-                <p class="flow-step-title"><span class="flow-step-icon">🎯</span>센터 챌린지 수행</p>
-                <p class="flow-step-desc">목표가 생겨서 회원이 운동 루틴을 시작해요.</p>
-            </div>
-            <div class="flow-connector">▼</div>
-            <div class="flow-step">
-                <span class="flow-step-no">2</span>
-                <p class="flow-step-title"><span class="flow-step-icon">📸</span>오운완 인증</p>
-                <p class="flow-step-desc">인증이 쌓일수록 꾸준함이 눈에 보이게 돼요.</p>
-            </div>
-            <div class="flow-connector">▼</div>
-            <div class="flow-step">
-                <span class="flow-step-no">3</span>
-                <p class="flow-step-title"><span class="flow-step-icon">❤️</span>서로 반응 (댓글/좋아요)</p>
-                <p class="flow-step-desc">커뮤니티 반응이 동기부여를 더 강하게 만들어요.</p>
-            </div>
-            <div class="flow-connector">▼</div>
-            <div class="flow-step">
-                <span class="flow-step-no">4</span>
-                <p class="flow-step-title"><span class="flow-step-icon">🎁</span>참여 혜택 제공</p>
-                <p class="flow-step-desc">챌린지/인증 보상으로 다시 참여할 이유가 생겨요.</p>
-            </div>
-            <div class="flow-connector">▼</div>
-            <div class="flow-step">
-                <span class="flow-step-no">5</span>
-                <p class="flow-step-title"><span class="flow-step-icon">🔁</span>재방문</p>
-                <p class="flow-step-desc">센터 방문이 습관으로 바뀌며 지속률이 높아져요.</p>
-            </div>
-            <div class="flow-connector">▼</div>
-            <div class="flow-step">
-                <span class="flow-step-no">6</span>
-                <p class="flow-step-title"><span class="flow-step-icon">💵</span>신규 유입 비용 Save</p>
-                <p class="flow-step-desc">회원 재등록으로 신규 유입 비용을 절감할 수 있어요.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-10">
-        <h2 class="text-xl font-bold text-zinc-100 mb-2 text-center">사전 등록 한 센터에게만 <span
-                class="text-yellow-300 font-bold"> 드리는 혜택</span></h2>
-
-        <div class="rounded-2xl border border-emerald-500/20 bg-black p-6">
-            <div class="space-y-3 text-zinc-200 text-sm leading-relaxed">
-                <p>✅ 스타트 구독 평생 무료<br>(QR, 운동인증, 랭킹, 기록, 센터정보)</p>
-                <p>✅ 프리미엄 출시 후 3개월 무료 제공<br>(챌린지,포인트,대시보드)</p>
-                <p>✅ 센터 1개월 상위 노출(센터 탭)</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="pt-2 pb-10">
-        <h2 class="text-xl font-bold text-zinc-100 mb-4 text-center">도입 전 꼭 확인하세요</h2>
-        <div class="space-y-3">
-            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
-                <summary class="cursor-pointer font-semibold text-zinc-100">지금 바로 쓸 수 있나요?</summary>
-                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
-                    현재 센터 전용 기능을 구현 중이며, 먼저 <b class="text-zinc-100">운동인증·랭킹·기록 기본 기능</b>부터
-                    출시 예정입니다.<br>
-                    <b class="text-zinc-100">추후 센터 주도 챌린지·포인트/보상·센터 대시보드</b>는 순차 출시 예정이며,
-                    사전등록 센터에는 업데이트 일정과 적용 방법을 우선 안내드립니다.
-                </p>
-            </details>
-            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
-                <summary class="cursor-pointer font-semibold text-zinc-100">기본 기능을 미리 체험해볼 수 있나요?
-                </summary>
-                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
-                    네. 앱스토어/플레이스토어에서 <b class="text-zinc-100">오운완</b>을 다운로드한 뒤,
-                    <b class="text-zinc-100">모임 생성</b>으로 운동인증·랭킹·기록·게시판 흐름을 바로 확인하실 수 있습니다.
-                </p>
-            </details>
-            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
-                <summary class="cursor-pointer font-semibold text-zinc-100">피트니스 회원들은 어떻게 참여하나요?
-                </summary>
-                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
-                    센터 전용 QR로 입장해 운동 인증을 올리고, 서로 반응하고, 챌린지와 랭킹에 참여합니다.
-                </p>
-            </details>
-            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
-                <summary class="cursor-pointer font-semibold text-zinc-100">지금 신청하면 진짜 무료인가요?
-                </summary>
-                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
-                    네. 현재 사전등록 센터는 무료로 시작할 수 있으며, 추후 유료 전환 시 사전 안내드립니다.
-                </p>
-            </details>
-            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
-                <summary class="cursor-pointer font-semibold text-zinc-100">운영자가 매일 많이 관리해야 하나요?
-                </summary>
-                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
-                    최대한 자동화된 시스템으로 운영자 부담을 줄이는 방향으로 개발 중입니다. 인증 사진 관리, 챌린지 설정, 랭킹 집계 등은
-                    대부분 자동으로 처리되며, 운영자는 필요에 따라 챌린지 주제 설정이나 회원 소통에 집중하실 수 있습니다.
-                </p>
-            </details>
-        </div>
-    </section>
-</main>
-
-<footer class="text-gray-400 py-8 sm:py-12 border-t border-gray-800">
-    <div class="container mx-auto px-4 sm:px-6 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="mb-2 md:mb-0 flex items-center gap-3">
-            <img src="images/oww_icon.png" alt="오운완" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl">
-            <div>
-                <div class="text-xl sm:text-2xl font-bold text-white mb-0.5">오운완</div>
-                <p class="text-xs sm:text-sm">운동 인증 커뮤니티</p>
+                <div class="hero-problem-title">회원 케어 및 관리는 점점 더 버거워지고</div>
             </div>
         </div>
     </div>
-</footer>
+</div>
+
+<section class="b2c-proof-section">
+    <h2 class="section-title fade-up">우리 센터만의 참여 문화를<br>오운완으로 만들어보세요.</h2>
+    <p class="section-desc b2c-proof-copy fade-up">
+        참여부터 인증, 랭킹, 소통까지.<br>회원이 더 자주 찾는 센터 운영을 시작할 수 있어요.
+    </p>
+    <div class="b2c-proof-feature">
+        <div class="b2c-proof-feature-copy fade-up">
+            <h3 class="b2c-proof-feature-title">운동 인증 참여 문화</h3>
+            <p class="b2c-proof-feature-intro">
+                오늘의 인증이 피드가 되고,<br>
+                꾸준함은 랭킹이 되고,<br>
+                결과는 기록으로 남아요.
+            </p>
+        </div>
+        <div class="b2c-proof-feature-visual b2c-proof-feature-gallery fade-up" style="animation-delay:0.08s">
+            <figure class="b2c-proof-feature-gallery-item">
+                <img src="images/f_1.png" alt="운동 인증 피드 화면">
+            </figure>
+            <figure class="b2c-proof-feature-gallery-item">
+                <img src="images/f_2.png" alt="인증 랭킹 화면">
+            </figure>
+            <figure class="b2c-proof-feature-gallery-item">
+                <img src="images/f_3.png" alt="인증 기록 화면">
+            </figure>
+        </div>
+    </div>
+    <div class="b2c-proof-feature">
+        <div class="b2c-proof-feature-copy fade-up">
+            <h3 class="b2c-proof-feature-title">함께하는 운동 챌린지</h3>
+            <p class="b2c-proof-feature-intro">
+                하나의 목표로 함께 시작하고,<br>
+                참여할수록 달성이 눈에 보이고,<br>
+                필요에 따라 보상 요소도 함께 운영할 수 있어요.
+            </p>
+        </div>
+        <div class="b2c-proof-feature-visual fade-up" style="animation-delay:0.08s">
+            <img src="images/challenge.png" alt="센터 QR로 앱 설치 없이 바로 참여하는 오운완 서비스 화면">
+        </div>
+    </div>
+    <div class="b2c-proof-feature">
+        <div class="b2c-proof-feature-copy fade-up">
+            <h3 class="b2c-proof-feature-title">센터 운영 관리</h3>
+            <p class="b2c-proof-feature-intro">
+                대시보드를 통해 참여 통계를 한눈에 보고,<br>
+                어떤 흐름이 이어지고 있는지 확인하고,<br>
+                센터에 맞는 방식으로 운영할 수 있어요.
+            </p>
+        </div>
+        <div class="b2c-proof-feature-visual fade-up" style="animation-delay:0.08s">
+            <img src="images/dashboard.png" alt="센터 QR로 앱 설치 없이 바로 참여하는 오운완 서비스 화면">
+        </div>
+    </div>
+    <div class="b2c-proof-feature">
+        <div class="b2c-proof-feature-copy fade-up">
+            <h3 class="b2c-proof-feature-title">QR코드로 바로 참여</h3>
+            <p class="b2c-proof-feature-intro">
+                카운터 위나 거울 옆에 QR만 두세요.<br>
+                센터는 추가 인력 필요없이,<br>
+                회원이 알아서 참여해요.
+            </p>
+        </div>
+        <div class="b2c-proof-feature-visual fade-up" style="animation-delay:0.08s">
+            <img src="images/qr_enter.png" alt="센터 QR로 앱 설치 없이 바로 참여하는 오운완 서비스 화면">
+        </div>
+    </div>
+</section>
+
+
+
+<section class="validation-section">
+    <h2 class="section-title fade-up">모임 참여도는 개인 대비 <span class="validation-highlight">10배예요</span>
+    </h2>
+
+    <div class="validation-chart fade-up">
+        <p class="validation-chart-label">참여 활성도 비교</p>
+        <div class="validation-chart-bars" role="img" aria-label="모임 참여 활성도는 개인 대비 10배">
+            <div class="validation-chart-item">
+                <p class="validation-chart-item-label">개인</p>
+                <div class="compare-bar compare-bar--personal compare-bar-delay-1"></div>
+            </div>
+            <div class="validation-chart-item">
+                <p class="validation-chart-item-label validation-chart-item-label--strong">모임</p>
+                <div class="compare-bar compare-bar--group compare-bar-delay-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <p class="section-desc validation-copy fade-up">
+        오운완 데이터를 분석한 결과,<br>
+        혼자 할 때보다 함께할 때 더 자주 참여했어요.<br>
+        오운완은 이 검증된 참여 흐름을 센터에 적용해요.
+    </p>
+</section>
+
+<section class="service-preview-full-section">
+    <h2 class="service-preview-heading fade-up">오운완 센터전용 기능을 소개해요.</h2>
+    <div class="service-preview-scroll-stage">
+        <div class="service-preview-full-frame fade-up">
+            <div class="service-preview-device">
+                <div class="service-preview-screen">
+                    <img src="images/service_img.png" alt="오운완 센터 서비스 랜딩 목업 전체 화면"
+                         class="service-preview-scroll-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="feature-overview-section">
+    <div class="feature-tag tag-now fade-up">우선 제공</div>
+    <div class="feature-grid feature-grid--six" style="margin-top: 8px;">
+        <div class="feature-card fade-up">
+            <div class="feature-icon">📲</div>
+            <h4>QR 참여</h4>
+            <p>앱 설치 없이 센터 QR로 바로 입장하고 참여를 시작합니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.05s">
+            <div class="feature-icon">📸</div>
+            <h4>운동 인증</h4>
+            <p>운동 사진을 올리면 오늘의 방문이 인증 기록으로 남습니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.1s">
+            <div class="feature-icon">🏆</div>
+            <h4>출석 랭킹</h4>
+            <p>주간·월간 기준으로 참여 상위 회원을 바로 확인할 수 있습니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.15s">
+            <div class="feature-icon">💬</div>
+            <h4>회원 게시판</h4>
+            <p>공지, 가입인사, 자유글을 한곳에서 운영하는 센터 전용 공간입니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.2s">
+            <div class="feature-icon">📊</div>
+            <h4>운동 기록</h4>
+            <p>월간 달성률과 누적 인증 흐름을 직관적으로 확인할 수 있습니다.</p>
+        </div>
+        <div class="feature-card fade-up" style="animation-delay:0.25s">
+            <div class="feature-icon">🏢</div>
+            <h4>센터 전용 페이지</h4>
+            <p>우리 센터만의 랭킹, 기록, 소통 화면을 한곳에 모아 제공합니다.</p>
+        </div>
+    </div>
+
+    <div class="feature-tag tag-soon fade-up" style="margin-top: 32px;">추후 확장</div>
+    <div class="feature-grid feature-grid--three" style="margin-top: 8px;">
+        <div class="feature-card future fade-up">
+            <div class="feature-icon">🎯</div>
+            <h4>챌린지</h4>
+            <p>기간별 미션을 열어 회원의 재방문 계기를 더 자주 만듭니다.</p>
+        </div>
+        <div class="feature-card future fade-up" style="animation-delay:0.05s">
+            <div class="feature-icon">🛒</div>
+            <h4>상품 판매</h4>
+            <p>센터 MD나 보충제를 자연스럽게 소개하고 판매할 수 있습니다.</p>
+        </div>
+        <div class="feature-card future fade-up" style="animation-delay:0.1s">
+            <div class="feature-icon">📈</div>
+            <h4>운영자 대시보드</h4>
+            <p>인증 수, 참여 추이, 이탈 징후 회원을 한눈에 파악할 수 있습니다.</p>
+        </div>
+    </div>
+
+    <div class="feature-summary fade-up">
+        <div class="feature-summary-kicker">확장 가능성</div>
+        <div class="feature-summary-content">
+            <h3>센터 안의 참여가, 센터 밖의 인지도로 이어집니다.</h3>
+            <div class="feature-summary-body">
+                <p>회원들의 인증 피드가 쌓이며 우리 센터의 분위기와 활기가 자연스럽게 드러납니다.</p>
+                <p>추후에는 외부 참여형 챌린지를 열어 추가 수익 모델로도 확장할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="feature-summary-visual">
+            <div class="feature-summary-shot-frame">
+                <img src="images/center_share.png" alt="오운완 피드 목업 이미지" class="feature-summary-shot">
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- HOW IT WORKS -->
+<section id="how">
+    <div class="section-label fade-up">작동 방식</div>
+    <h2 class="section-title fade-up">QR을 찍는 순간부터<br>연결이 시작됩니다.</h2>
+    <p class="section-desc fade-up">원장님이 따로 독려하지 않아도, 회원이 스스로 나올 이유를 만들어갑니다.</p>
+
+    <div class="flow-list">
+        <div class="flow-item fade-up">
+            <div class="flow-step-num">1</div>
+            <div class="flow-content">
+                <h4>회원이 QR을 찍고 입장합니다</h4>
+                <p>별도 앱 설치 없이, 센터에 비치된 QR 코드 하나로 즉시 참여할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="flow-item fade-up" style="animation-delay:0.1s">
+            <div class="flow-step-num">2</div>
+            <div class="flow-content">
+                <h4>운동을 인증하고 기록이 쌓입니다</h4>
+                <p>사진 기반 인증으로 오늘의 운동을 남깁니다. 기록이 쌓일수록 그만두기 어려워집니다.</p>
+            </div>
+        </div>
+        <div class="flow-item fade-up" style="animation-delay:0.2s">
+            <div class="flow-step-num">3</div>
+            <div class="flow-content">
+                <h4>랭킹과 게시판으로 연결됩니다</h4>
+                <p>같은 센터 회원끼리 출석 랭킹을 보고, 게시판에서 반응합니다. 혼자가 아닌 느낌이 생깁니다.</p>
+            </div>
+        </div>
+        <div class="flow-item fade-up" style="animation-delay:0.3s">
+            <div class="flow-step-num">4</div>
+            <div class="flow-content">
+                <h4>다음 주에도 나오게 되는 구조</h4>
+                <p>동료가 생기고, 기록이 끊기기 싫어집니다. 출석이 점점 습관이 됩니다.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- EFFECTS -->
+<section>
+    <div class="section-label fade-up">기대 효과</div>
+    <h2 class="section-title fade-up">원장님에게 생기는 변화</h2>
+
+    <div class="effect-list">
+        <div class="effect-item fade-up">
+            <div class="effect-icon-box">📵</div>
+            <div class="effect-body">
+                <h4>먼저 연락 안 해도 됩니다</h4>
+                <p>회원이 커뮤니티 안에서 스스로 동기를 만들어갑니다. 독려 메시지를 보내는 부담이 사라집니다.</p>
+            </div>
+        </div>
+        <div class="effect-item fade-up" style="animation-delay:0.1s">
+            <div class="effect-icon-box">📉</div>
+            <div class="effect-body">
+                <h4>이탈 신호를 더 일찍 볼 수 있습니다</h4>
+                <p>출석·인증 데이터로 뜸해지는 회원을 먼저 파악합니다. 재등록 전에 개입할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="effect-item fade-up" style="animation-delay:0.2s">
+            <div class="effect-icon-box">💰</div>
+            <div class="effect-body">
+                <h4>광고 없이 재등록률을 높입니다</h4>
+                <p>기존 회원을 지키는 비용은 신규 유치보다 훨씬 쌉니다. 광고 의존도가 낮아집니다.</p>
+            </div>
+        </div>
+        <div class="effect-item fade-up" style="animation-delay:0.3s">
+            <div class="effect-icon-box">⚡</div>
+            <div class="effect-body">
+                <h4>센터 분위기 자체가 달라집니다</h4>
+                <p>경쟁과 소속감이 공간의 에너지를 바꿉니다. 활기 있는 센터가 더 좋은 회원을 모읍니다.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="cta">
+    <div class="section-label" style="text-align:center; margin-bottom:20px;">시작하기</div>
+    <h2 class="fade-up"><em>첫 달은 무료</em>로<br>직접 경험해보세요.</h2>
+    <p class="fade-up" style="animation-delay:0.1s">복잡한 계약 없이, QR 하나로 시작합니다.<br>광고비 쓰기 전에, 지금 있는 회원을
+        먼저 붙잡으세요.</p>
+    <a href="mailto:contact@ounwan.com" class="btn-primary fade-up"
+       style="animation-delay:0.2s; font-size:16px; padding:16px 36px;">무료 도입 문의하기</a>
+</div>
 
 <script>
-    (() => {
-        const charts = document.querySelectorAll('.compare-chart');
-        if (!charts.length) return;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-        if (!('IntersectionObserver' in window)) {
-            charts.forEach((chart) => chart.classList.add('is-visible'));
-            return;
-        }
+    const previewStage = document.querySelector('.service-preview-scroll-stage');
+    const previewFrame = document.querySelector('.service-preview-full-frame');
+    const previewViewport = document.querySelector('.service-preview-screen');
+    const previewImage = document.querySelector('.service-preview-scroll-image');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let previewMetrics = null;
+    let previewTicking = false;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.45
-        });
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-        charts.forEach((chart) => observer.observe(chart));
-    })();
+    const updatePreviewMetrics = () => {
+      if (!previewStage || !previewFrame || !previewViewport || !previewImage) return;
 
-    (() => {
-        const product = document.querySelector('.rotating-product');
-        if (!product) return;
+      const stickyTop = parseFloat(getComputedStyle(previewFrame).top) || 0;
+      const frameHeight = previewFrame.offsetHeight;
+      const viewportHeight = previewViewport.offsetHeight;
+      const imageHeight = previewImage.offsetHeight;
+      const stageTop = window.scrollY + previewStage.getBoundingClientRect().top;
+      const scrollRange = Math.max(previewStage.offsetHeight - frameHeight, 1);
 
-        const TILT_X_DEG = 8;
-        const AUTO_SPEED_DEG_PER_SEC = 20;
-        const DRAG_SENSITIVITY = 0.35;
-        const AUTO_RESUME_DELAY_MS = 2000;
+      previewMetrics = {
+        start: stageTop - stickyTop,
+        end: stageTop - stickyTop + scrollRange,
+        maxOffset: Math.min(0, viewportHeight - imageHeight)
+      };
 
-        let currentAngle = -20;
-        let isAutoRotating = true;
-        let isDragging = false;
-        let activePointerId = null;
-        let dragStartX = 0;
-        let dragStartAngle = currentAngle;
-        let autoResumeTimer = null;
-        let rafId = null;
-        let previousTimestamp = 0;
+      updatePreviewPosition();
+    };
 
-        const applyTransform = () => {
-            product.style.transform = `rotateX(${TILT_X_DEG}deg) rotateY(${currentAngle}deg)`;
-        };
+    const updatePreviewPosition = () => {
+      previewTicking = false;
+      if (!previewImage || !previewMetrics) return;
 
-        const clearAutoResumeTimer = () => {
-            if (autoResumeTimer !== null) {
-                clearTimeout(autoResumeTimer);
-                autoResumeTimer = null;
-            }
-        };
+      if (reducedMotionQuery.matches || previewMetrics.maxOffset === 0) {
+        previewImage.style.transform = 'translateY(0)';
+        return;
+      }
 
-        const pauseAutoRotate = () => {
-            isAutoRotating = false;
-            clearAutoResumeTimer();
-        };
+      const progress = clamp(
+        (window.scrollY - previewMetrics.start) / (previewMetrics.end - previewMetrics.start),
+        0,
+        1
+      );
 
-        const scheduleAutoRotate = () => {
-            clearAutoResumeTimer();
-            autoResumeTimer = setTimeout(() => {
-                if (!isDragging) {
-                    isAutoRotating = true;
-                }
-            }, AUTO_RESUME_DELAY_MS);
-        };
+      previewImage.style.transform = `translateY(${previewMetrics.maxOffset * progress}px)`;
+    };
 
-        const onPointerDown = (event) => {
-            if (event.button !== undefined && event.button !== 0) return;
+    const requestPreviewPosition = () => {
+      if (previewTicking) return;
+      previewTicking = true;
+      window.requestAnimationFrame(updatePreviewPosition);
+    };
 
-            isDragging = true;
-            activePointerId = event.pointerId;
-            dragStartX = event.clientX;
-            dragStartAngle = currentAngle;
-            pauseAutoRotate();
-            product.classList.add('is-dragging');
-            product.setPointerCapture(event.pointerId);
-        };
+    if (previewStage && previewFrame && previewViewport && previewImage) {
+      previewImage.addEventListener('load', updatePreviewMetrics);
+      window.addEventListener('resize', updatePreviewMetrics);
+      window.addEventListener('scroll', requestPreviewPosition, { passive: true });
 
-        const onPointerMove = (event) => {
-            if (!isDragging || event.pointerId !== activePointerId) return;
+      if (typeof reducedMotionQuery.addEventListener === 'function') {
+        reducedMotionQuery.addEventListener('change', updatePreviewMetrics);
+      }
 
-            const deltaX = event.clientX - dragStartX;
-            currentAngle = dragStartAngle + deltaX * DRAG_SENSITIVITY;
-            applyTransform();
-        };
+      updatePreviewMetrics();
+      window.addEventListener('load', updatePreviewMetrics, { once: true });
+    }
 
-        const onPointerEnd = (event) => {
-            if (!isDragging || event.pointerId !== activePointerId) return;
-
-            isDragging = false;
-            activePointerId = null;
-            product.classList.remove('is-dragging');
-
-            if (product.hasPointerCapture(event.pointerId)) {
-                product.releasePointerCapture(event.pointerId);
-            }
-
-            scheduleAutoRotate();
-        };
-
-        const animate = (timestamp) => {
-            if (!previousTimestamp) previousTimestamp = timestamp;
-            const deltaSec = (timestamp - previousTimestamp) / 1000;
-            previousTimestamp = timestamp;
-
-            if (isAutoRotating && !isDragging) {
-                currentAngle += AUTO_SPEED_DEG_PER_SEC * deltaSec;
-                if (Math.abs(currentAngle) > 360) {
-                    currentAngle %= 360;
-                }
-                applyTransform();
-            }
-
-            rafId = requestAnimationFrame(animate);
-        };
-
-        product.addEventListener('pointerdown', onPointerDown);
-        product.addEventListener('pointermove', onPointerMove);
-        product.addEventListener('pointerup', onPointerEnd);
-        product.addEventListener('pointercancel', onPointerEnd);
-        product.addEventListener('dragstart', (event) => event.preventDefault());
-
-        product.addEventListener('lostpointercapture', () => {
-            if (!isDragging) return;
-            isDragging = false;
-            activePointerId = null;
-            product.classList.remove('is-dragging');
-            scheduleAutoRotate();
-        });
-
-        applyTransform();
-        rafId = requestAnimationFrame(animate);
-
-        window.addEventListener('pagehide', () => {
-            clearAutoResumeTimer();
-            if (rafId !== null) {
-                cancelAnimationFrame(rafId);
-            }
-        });
-    })();
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
 </script>
 
 </body>

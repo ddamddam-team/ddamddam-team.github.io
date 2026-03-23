@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오운완-우리 센터 참여 서비스</title>
+    <link rel="icon" href="images/oww_icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background:
+                radial-gradient(900px 420px at 10% -10%, rgba(148, 163, 184, 0.15), transparent 60%),
+                radial-gradient(900px 420px at 90% 0%, rgba(16, 185, 129, 0.08), transparent 62%),
+                #09090b;
+            color: #e2e8f0;
+        }
+
+        .highlight-red {
+            color: #f87171;
+        }
+
+        .bg-kakao {
+            background-color: #FEE500;
+            color: #111827;
+        }
+
+        .card-shadow {
+            box-shadow: 0 14px 30px -12px rgba(15, 23, 42, 0.6);
+        }
+
+        .flow-shell {
+            max-width: 22rem;
+            margin: 0 auto;
+            padding: 0.9rem;
+            border: 1px solid rgba(250, 204, 21, 0.28);
+            border-radius: 1.25rem;
+        }
+
+        .flow-step {
+            position: relative;
+            border: 1px solid rgba(161, 161, 170, 0.35);
+            border-radius: 0.95rem;
+            padding: 0.85rem 0.9rem 0.75rem 3.2rem;
+            text-align: left;
+        }
+
+        .flow-step-no {
+            position: absolute;
+            left: 0.75rem;
+            top: 0.8rem;
+            width: 1.7rem;
+            height: 1.7rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(250, 204, 21, 0.55);
+            background: rgba(9, 9, 11, 0.95);
+            color: #fde047;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-step-title {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #f4f4f5;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .flow-step-icon {
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flow-step-desc {
+            margin-top: 0.35rem;
+            color: #a1a1aa;
+            font-size: 0.78rem;
+            line-height: 1.4;
+        }
+
+        .flow-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.1rem;
+            height: 1.5rem;
+            color: rgba(250, 204, 21, 0.9);
+            font-size: 0.8rem;
+        }
+
+        .flow-connector::before {
+            content: "";
+            width: 1px;
+            height: 0.85rem;
+            background: linear-gradient(180deg, rgba(250, 204, 21, 0.85), rgba(250, 204, 21, 0.2));
+        }
+
+        .flow-result {
+            margin-top: 0.75rem;
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            border-radius: 0.9rem;
+            padding: 0.75rem 0.9rem;
+            text-align: left;
+            color: #d1fae5;
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
+        .flow-result b {
+            color: #6ee7b7;
+        }
+
+        .auto-scroll-gallery {
+            overflow: hidden;
+            padding: 0.25rem 0;
+            margin-bottom: 1rem;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        }
+
+        .auto-scroll-track {
+            display: flex;
+            width: max-content;
+            animation: auto-scroll 30s linear infinite;
+        }
+
+        .auto-scroll-group {
+            display: flex;
+            gap: 0.75rem;
+            padding-right: 0.75rem;
+        }
+
+        .auto-scroll-group img {
+            width: 10rem;
+            height: 14rem;
+            object-fit: cover;
+            border-radius: 0.9rem;
+            border: 1px solid #3f3f46;
+            flex-shrink: 0;
+            box-shadow: 0 12px 20px -14px rgba(15, 23, 42, 0.9);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .auto-scroll-gallery:hover .auto-scroll-track {
+                animation-play-state: paused;
+            }
+        }
+
+        .product-3d-stage {
+            perspective: 1100px;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+        }
+
+        .rotating-product {
+            width: min(50%, 12rem);
+            transform-origin: center center;
+            transform-style: preserve-3d;
+            filter: drop-shadow(0 18px 30px rgba(20, 184, 166, 0.2));
+            will-change: transform;
+            cursor: grab;
+            touch-action: pan-y;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .compare-bar {
+            transform-origin: bottom center;
+            transform: scaleY(0);
+            opacity: 0.45;
+            will-change: transform, opacity;
+        }
+
+        .compare-bar-delay-1 {
+            animation-delay: 0.08s;
+        }
+
+        .compare-bar-delay-2 {
+            animation-delay: 0.25s;
+        }
+
+        .compare-chart.is-visible .compare-bar {
+            animation: bar-grow-up 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes auto-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes bar-grow-up {
+            from {
+                transform: scaleY(0);
+                opacity: 0.45;
+            }
+
+            to {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .compare-bar {
+                transform: none;
+                opacity: 1;
+            }
+
+            .compare-chart.is-visible .compare-bar {
+                animation: none;
+            }
+        }
+
+        .rotating-product.is-dragging {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body class="max-w-md mx-auto min-h-screen bg-zinc-950 border-x border-zinc-800">
+
+
+<main class="px-6 space-y-10">
+    <section class="py-12 text-center">
+        <p class="text-white leading-relaxed mt-2 mb-2">회원들이 알아서 참여해요.</p>
+
+        <h1 class="text-2xl font-extrabold leading-tight mb-6 text-zinc-50">
+            운동인증부터 랭킹·챌린지까지<br>
+            <span class="text-yellow-300">QR코드 하나만 붙이세요.</span>
+        </h1>
+
+        <div class="auto-scroll-gallery" aria-label="센터 이미지 자동 스크롤">
+            <div class="auto-scroll-track">
+                <div class="auto-scroll-group">
+                    <img src="images/img_1.jpeg" alt="센터 운동 이미지 1">
+                    <img src="images/img_2.jpeg" alt="센터 운동 이미지 2">
+                    <img src="images/img_3.jpeg" alt="센터 운동 이미지 3">
+                    <img src="images/img_4.jpeg" alt="센터 운동 이미지 4">
+                    <img src="images/img_5.jpeg" alt="센터 운동 이미지 5">
+                    <img src="images/img_6.jpeg" alt="센터 운동 이미지 6">
+                </div>
+                <div class="auto-scroll-group" aria-hidden="true">
+                    <img src="images/img_1.jpeg" alt="">
+                    <img src="images/img_2.jpeg" alt="">
+                    <img src="images/img_3.jpeg" alt="">
+                    <img src="images/img_4.jpeg" alt="">
+                    <img src="images/img_5.jpeg" alt="">
+                    <img src="images/img_6.jpeg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <p class="inline-flex items-center justify-center rounded-full border border-amber-300/40 bg-black px-4 py-2 text-sm text-amber-200 mb-4">
+            🎁 사전 등록하고 무료로 이용하세요.
+        </p>
+
+        <a href="https://open.kakao.com/o/gnZCZkii" target="_blank"
+           class="bg-kakao w-full py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform shadow-xl shadow-yellow-500/20">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg"
+                 class="w-6 h-6" alt="kakao">
+            사전등록 오픈채팅방
+        </a>
+    </section>
+
+    <section class="py-4">
+        <h2 class="text-2xl font-bold text-zinc-100 mb-4 text-center">혹시 이런 고민 있나요?</h2>
+        <div class="space-y-3">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-200 font-medium text-center">
+                💸 신규 유입 광고비를 너무 많이 써요.
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-200 font-medium text-center">
+                ⚡ 등록은 하는데, 회원이 자꾸 안나와요.
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-200 font-medium text-center">
+                📍 점점 센터 분위기가 조용해져요.
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-4 text-zinc-200 font-medium text-center">
+                📉 회원이 언제 이탈하는지 모르겠어요.
+            </div>
+        </div>
+    </section>
+
+    <div class="product-3d-stage">
+        <img src="images/oww_x_fitness.png" alt="오운완 피트니스 센터 이미지" class="rotating-product">
+    </div>
+
+    <section class="py-4">
+        <div class="mt-2 text-center">
+            <p class="text-zinc-100 text-2xl font-extrabold leading-snug tracking-tight">센터 내 <span
+                    class="text-yellow-300 font-bold"> 회원 참여
+                서비스가</span><br>필요할 때입니다.</p>
+            <p class="mt-6 text-zinc-300 leading-relaxed mb-4"></p>
+            <div class="space-y-5">
+                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
+                    <h3 class="font-bold text-lg text-zinc-100">📸 운동 인증</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">센터에서 운동한 사진을 피드로 인증하고<br>좋아요/댓글로
+                        서로 반응할 수 있어요</p>
+                </div>
+                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
+                    <h3 class="font-bold text-lg text-zinc-100">🏅 랭킹</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">센터 기준으로 인증 일 수 기반 월간 랭킹을
+                        제공해요.</p>
+                </div>
+                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
+                    <h3 class="font-bold text-lg text-zinc-100">🏁 챌린지</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">센터가 기간/미션을 정해 참여형 챌린지를 운영할
+                        수 있어요.</p>
+                </div>
+                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
+                    <h3 class="font-bold text-lg text-zinc-100">🎁 포인트/보상</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">인증/챌린지 달성에 따라 <br>센터 포인트를
+                        지급하고 보상으로 교환할 수 있어요.</p>
+                </div>
+                <div class="card-shadow p-6 rounded-2xl border border border-zinc-800 bg-black">
+                    <h3 class="font-bold text-lg text-zinc-100">📊 회원참여 대시보드</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mt-2">회원들의 인증/참여/활동 추이를 한눈에 볼 수
+                        있어서<br>이탈을 미리 잡을 수 있어요</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-2">
+
+        <h2 class="text-2xl font-extrabold leading-snug tracking-tight text-zinc-100 text-center">
+            오운완에서 <span class="text-yellow-300">검증</span>했어요.
+        </h2>
+
+        <p class="mt-4 text-center text-sm leading-relaxed text-zinc-300">
+            모임 참여 활성도는 개인 대비
+            <span class="font-extrabold text-emerald-300">10배</span>예요.
+        </p>
+
+        <div class="compare-chart mt-2 rounded-xl border border-emerald-300/30 bg-black/40 px-4 py-5">
+            <p class="text-center text-xs tracking-wide text-emerald-200">참여 활성도 비교</p>
+            <div class="mt-4 flex items-end justify-center gap-6 sm:gap-8" role="img"
+                 aria-label="모임 참여 활성도는 개인 대비 10배">
+                <div class="w-20 text-center">
+                    <p class="mb-2 text-xs font-semibold text-zinc-400">개인</p>
+                    <div class="compare-bar compare-bar-delay-1 h-8 rounded-t-md border border-zinc-500/40 bg-zinc-500/35"></div>
+                </div>
+                <div class="w-20 text-center">
+                    <p class="mb-2 text-sm font-extrabold text-emerald-300">모임</p>
+                    <div class="compare-bar compare-bar-delay-2 h-40 rounded-t-md border border-emerald-200/55 bg-gradient-to-t from-emerald-500/55 to-emerald-300/95 shadow-[0_0_24px_rgba(16,185,129,0.35)]"></div>
+                </div>
+            </div>
+            <p class="mt-4 text-center text-sm font-semibold text-emerald-200">모임 참여 활성도 = 개인 대비
+                10배</p>
+        </div>
+
+        <p class="mt-4 text-center text-sm leading-relaxed text-zinc-300">
+            이 참여 구조를 센터에 그대로 적용해<br>
+            <span class="font-semibold text-zinc-100">인증·반응·랭킹·보상</span>으로 회원 참여를 만들어요.
+        </p>
+
+    </section>
+
+    <section class="py-4">
+        <h2 class="text-2xl font-bold text-zinc-100 mb-6 text-center">회원은 센터 지속률이 높아져요</h2>
+        <p class="text-center text-zinc-400 text-sm mb-4">참여가 이어질수록 재방문이 자연스럽게 늘어나는 구조</p>
+
+        <div class="flow-shell">
+            <div class="flow-step">
+                <span class="flow-step-no">1</span>
+                <p class="flow-step-title"><span class="flow-step-icon">🎯</span>센터 챌린지 수행</p>
+                <p class="flow-step-desc">목표가 생겨서 회원이 운동 루틴을 시작해요.</p>
+            </div>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">2</span>
+                <p class="flow-step-title"><span class="flow-step-icon">📸</span>오운완 인증</p>
+                <p class="flow-step-desc">인증이 쌓일수록 꾸준함이 눈에 보이게 돼요.</p>
+            </div>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">3</span>
+                <p class="flow-step-title"><span class="flow-step-icon">❤️</span>서로 반응 (댓글/좋아요)</p>
+                <p class="flow-step-desc">커뮤니티 반응이 동기부여를 더 강하게 만들어요.</p>
+            </div>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">4</span>
+                <p class="flow-step-title"><span class="flow-step-icon">🎁</span>참여 혜택 제공</p>
+                <p class="flow-step-desc">챌린지/인증 보상으로 다시 참여할 이유가 생겨요.</p>
+            </div>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">5</span>
+                <p class="flow-step-title"><span class="flow-step-icon">🔁</span>재방문</p>
+                <p class="flow-step-desc">센터 방문이 습관으로 바뀌며 지속률이 높아져요.</p>
+            </div>
+            <div class="flow-connector">▼</div>
+            <div class="flow-step">
+                <span class="flow-step-no">6</span>
+                <p class="flow-step-title"><span class="flow-step-icon">💵</span>신규 유입 비용 Save</p>
+                <p class="flow-step-desc">회원 재등록으로 신규 유입 비용을 절감할 수 있어요.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10">
+        <h2 class="text-xl font-bold text-zinc-100 mb-2 text-center">사전 등록 한 센터에게만 <span
+                class="text-yellow-300 font-bold"> 드리는 혜택</span></h2>
+
+        <div class="rounded-2xl border border-emerald-500/20 bg-black p-6">
+            <div class="space-y-3 text-zinc-200 text-sm leading-relaxed">
+                <p>✅ 스타트 구독 평생 무료<br>(QR, 운동인증, 랭킹, 기록, 센터정보)</p>
+                <p>✅ 프리미엄 출시 후 3개월 무료 제공<br>(챌린지,포인트,대시보드)</p>
+                <p>✅ 센터 1개월 상위 노출(센터 탭)</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pt-2 pb-10">
+        <h2 class="text-xl font-bold text-zinc-100 mb-4 text-center">도입 전 꼭 확인하세요</h2>
+        <div class="space-y-3">
+            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+                <summary class="cursor-pointer font-semibold text-zinc-100">지금 바로 쓸 수 있나요?</summary>
+                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
+                    현재 센터 전용 기능을 구현 중이며, 먼저 <b class="text-zinc-100">운동인증·랭킹·기록 기본 기능</b>부터
+                    출시 예정입니다.<br>
+                    <b class="text-zinc-100">추후 센터 주도 챌린지·포인트/보상·센터 대시보드</b>는 순차 출시 예정이며,
+                    사전등록 센터에는 업데이트 일정과 적용 방법을 우선 안내드립니다.
+                </p>
+            </details>
+            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+                <summary class="cursor-pointer font-semibold text-zinc-100">기본 기능을 미리 체험해볼 수 있나요?
+                </summary>
+                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
+                    네. 앱스토어/플레이스토어에서 <b class="text-zinc-100">오운완</b>을 다운로드한 뒤,
+                    <b class="text-zinc-100">모임 생성</b>으로 운동인증·랭킹·기록·게시판 흐름을 바로 확인하실 수 있습니다.
+                </p>
+            </details>
+            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+                <summary class="cursor-pointer font-semibold text-zinc-100">피트니스 회원들은 어떻게 참여하나요?
+                </summary>
+                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
+                    센터 전용 QR로 입장해 운동 인증을 올리고, 서로 반응하고, 챌린지와 랭킹에 참여합니다.
+                </p>
+            </details>
+            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+                <summary class="cursor-pointer font-semibold text-zinc-100">지금 신청하면 진짜 무료인가요?
+                </summary>
+                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
+                    네. 현재 사전등록 센터는 무료로 시작할 수 있으며, 추후 유료 전환 시 사전 안내드립니다.
+                </p>
+            </details>
+            <details open class="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+                <summary class="cursor-pointer font-semibold text-zinc-100">운영자가 매일 많이 관리해야 하나요?
+                </summary>
+                <p class="mt-2 text-sm leading-relaxed text-zinc-300">
+                    최대한 자동화된 시스템으로 운영자 부담을 줄이는 방향으로 개발 중입니다. 인증 사진 관리, 챌린지 설정, 랭킹 집계 등은
+                    대부분 자동으로 처리되며, 운영자는 필요에 따라 챌린지 주제 설정이나 회원 소통에 집중하실 수 있습니다.
+                </p>
+            </details>
+        </div>
+    </section>
+</main>
+
+<footer class="text-gray-400 py-8 sm:py-12 border-t border-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="mb-2 md:mb-0 flex items-center gap-3">
+            <img src="images/oww_icon.png" alt="오운완" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl">
+            <div>
+                <div class="text-xl sm:text-2xl font-bold text-white mb-0.5">오운완</div>
+                <p class="text-xs sm:text-sm">운동 인증 커뮤니티</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    (() => {
+        const charts = document.querySelectorAll('.compare-chart');
+        if (!charts.length) return;
+
+        if (!('IntersectionObserver' in window)) {
+            charts.forEach((chart) => chart.classList.add('is-visible'));
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.45
+        });
+
+        charts.forEach((chart) => observer.observe(chart));
+    })();
+
+    (() => {
+        const product = document.querySelector('.rotating-product');
+        if (!product) return;
+
+        const TILT_X_DEG = 8;
+        const AUTO_SPEED_DEG_PER_SEC = 20;
+        const DRAG_SENSITIVITY = 0.35;
+        const AUTO_RESUME_DELAY_MS = 2000;
+
+        let currentAngle = -20;
+        let isAutoRotating = true;
+        let isDragging = false;
+        let activePointerId = null;
+        let dragStartX = 0;
+        let dragStartAngle = currentAngle;
+        let autoResumeTimer = null;
+        let rafId = null;
+        let previousTimestamp = 0;
+
+        const applyTransform = () => {
+            product.style.transform = `rotateX(${TILT_X_DEG}deg) rotateY(${currentAngle}deg)`;
+        };
+
+        const clearAutoResumeTimer = () => {
+            if (autoResumeTimer !== null) {
+                clearTimeout(autoResumeTimer);
+                autoResumeTimer = null;
+            }
+        };
+
+        const pauseAutoRotate = () => {
+            isAutoRotating = false;
+            clearAutoResumeTimer();
+        };
+
+        const scheduleAutoRotate = () => {
+            clearAutoResumeTimer();
+            autoResumeTimer = setTimeout(() => {
+                if (!isDragging) {
+                    isAutoRotating = true;
+                }
+            }, AUTO_RESUME_DELAY_MS);
+        };
+
+        const onPointerDown = (event) => {
+            if (event.button !== undefined && event.button !== 0) return;
+
+            isDragging = true;
+            activePointerId = event.pointerId;
+            dragStartX = event.clientX;
+            dragStartAngle = currentAngle;
+            pauseAutoRotate();
+            product.classList.add('is-dragging');
+            product.setPointerCapture(event.pointerId);
+        };
+
+        const onPointerMove = (event) => {
+            if (!isDragging || event.pointerId !== activePointerId) return;
+
+            const deltaX = event.clientX - dragStartX;
+            currentAngle = dragStartAngle + deltaX * DRAG_SENSITIVITY;
+            applyTransform();
+        };
+
+        const onPointerEnd = (event) => {
+            if (!isDragging || event.pointerId !== activePointerId) return;
+
+            isDragging = false;
+            activePointerId = null;
+            product.classList.remove('is-dragging');
+
+            if (product.hasPointerCapture(event.pointerId)) {
+                product.releasePointerCapture(event.pointerId);
+            }
+
+            scheduleAutoRotate();
+        };
+
+        const animate = (timestamp) => {
+            if (!previousTimestamp) previousTimestamp = timestamp;
+            const deltaSec = (timestamp - previousTimestamp) / 1000;
+            previousTimestamp = timestamp;
+
+            if (isAutoRotating && !isDragging) {
+                currentAngle += AUTO_SPEED_DEG_PER_SEC * deltaSec;
+                if (Math.abs(currentAngle) > 360) {
+                    currentAngle %= 360;
+                }
+                applyTransform();
+            }
+
+            rafId = requestAnimationFrame(animate);
+        };
+
+        product.addEventListener('pointerdown', onPointerDown);
+        product.addEventListener('pointermove', onPointerMove);
+        product.addEventListener('pointerup', onPointerEnd);
+        product.addEventListener('pointercancel', onPointerEnd);
+        product.addEventListener('dragstart', (event) => event.preventDefault());
+
+        product.addEventListener('lostpointercapture', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            activePointerId = null;
+            product.classList.remove('is-dragging');
+            scheduleAutoRotate();
+        });
+
+        applyTransform();
+        rafId = requestAnimationFrame(animate);
+
+        window.addEventListener('pagehide', () => {
+            clearAutoResumeTimer();
+            if (rafId !== null) {
+                cancelAnimationFrame(rafId);
+            }
+        });
+    })();
+</script>
+
+</body>
+</html>
