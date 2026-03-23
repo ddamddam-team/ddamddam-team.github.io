@@ -586,35 +586,20 @@
 
         /* FEATURES */
         .feature-grid {
-          display: flex;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 12px;
           margin-top: 40px;
-          overflow-x: auto;
-          padding-bottom: 10px;
-          scroll-snap-type: x proximity;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: thin;
-          scrollbar-color: rgba(255,255,255,0.18) transparent;
-        }
-        .feature-grid::-webkit-scrollbar {
-          height: 8px;
-        }
-        .feature-grid::-webkit-scrollbar-thumb {
-          background: rgba(255,255,255,0.18);
-          border-radius: 999px;
         }
         .feature-grid--six .feature-card {
-          flex: 0 0 calc((100% - 60px) / 6);
-          min-width: 190px;
+          min-width: 0;
         }
         .feature-grid--three .feature-card {
-          flex: 0 0 calc((100% - 24px) / 3);
-          min-width: 220px;
+          min-width: 0;
         }
         .feature-card {
           background: var(--navy-mid); border: 1px solid var(--border);
           border-radius: 12px; padding: 20px 22px;
-          scroll-snap-align: start;
         }
         .feature-icon {
           width: 36px; height: 36px; border-radius: 8px;
@@ -744,8 +729,8 @@
             gap: 22px;
           }
           .b2c-proof-feature-gallery {
-            grid-template-columns: 1fr;
-            gap: 16px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
           }
         }
 
@@ -837,6 +822,9 @@
             padding: 11px 12px;
             font-size: 13px;
           }
+          .b2c-proof-feature-gallery {
+            gap: 8px;
+          }
           .validation-chart {
             padding: 18px 12px;
           }
@@ -851,13 +839,8 @@
           }
           .hero-problem-title { font-size: clamp(12px, 7vw, 18px); }
           .feature-grid {
-            padding-bottom: 6px;
-          }
-          .feature-grid--six .feature-card {
-            min-width: 168px;
-          }
-          .feature-grid--three .feature-card {
-            min-width: 200px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
           }
           .feature-summary {
             grid-template-columns: 1fr;
@@ -994,46 +977,6 @@
     </div>
 </section>
 
-
-
-<section class="validation-section">
-    <h2 class="section-title fade-up">모임 참여도는 개인 대비 <span class="validation-highlight">10배예요</span>
-    </h2>
-
-    <div class="validation-chart fade-up">
-        <p class="validation-chart-label">참여 활성도 비교</p>
-        <div class="validation-chart-bars" role="img" aria-label="모임 참여 활성도는 개인 대비 10배">
-            <div class="validation-chart-item">
-                <p class="validation-chart-item-label">개인</p>
-                <div class="compare-bar compare-bar--personal compare-bar-delay-1"></div>
-            </div>
-            <div class="validation-chart-item">
-                <p class="validation-chart-item-label validation-chart-item-label--strong">모임</p>
-                <div class="compare-bar compare-bar--group compare-bar-delay-2"></div>
-            </div>
-        </div>
-    </div>
-
-    <p class="section-desc validation-copy fade-up">
-        오운완 데이터를 분석한 결과,<br>
-        혼자 할 때보다 함께할 때 더 자주 참여했어요.<br>
-        오운완은 이 검증된 참여 흐름을 센터에 적용해요.
-    </p>
-</section>
-
-<section class="service-preview-full-section">
-    <h2 class="service-preview-heading fade-up">오운완 센터전용 기능을 소개해요.</h2>
-    <div class="service-preview-scroll-stage">
-        <div class="service-preview-full-frame fade-up">
-            <div class="service-preview-device">
-                <div class="service-preview-screen">
-                    <img src="images/service_img.png" alt="오운완 센터 서비스 랜딩 목업 전체 화면"
-                         class="service-preview-scroll-image">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- FEATURES -->
 <section class="feature-overview-section">
