@@ -347,36 +347,46 @@
         }
 
         /* B2C PROOF */
-        .b2c-proof-section {
+        .hero-section,
+        .why-section,
+        .solution-section {
           max-width: 1240px;
-          padding-top: calc(56px + var(--nav-offset));
-          padding-bottom: 56px;
         }
-        .b2c-proof-section .section-label,
-        .b2c-proof-section .section-title,
-        .b2c-proof-section .section-desc {
+        .hero-section {
+          padding-top: calc(20px + var(--nav-offset));
+          padding-bottom: 0;
+        }
+        .hero-section .section-label,
+        .hero-section .section-title,
+        .hero-section .section-desc {
           text-align: center;
           margin-left: auto;
           margin-right: auto;
         }
-        .b2c-proof-section .section-title {
+        .hero-section .section-title {
           font-size: clamp(34px, 5vw, 56px);
           line-height: 1.2;
           letter-spacing: -0.04em;
         }
+        .why-section {
+          padding-top: 28px;
+          padding-bottom: 0;
+        }
+        .solution-section {
+          padding-top: 40px;
+          padding-bottom: 56px;
+        }
         .b2c-proof-hero {
           position: relative;
-          aspect-ratio: 1408 / 832;
           min-height: 0;
           padding: clamp(24px, 4vw, 48px);
           border-radius: 32px;
           overflow: hidden;
-          display: flex;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
           align-items: center;
-          justify-content: center;
-          background-image: url('images/background.png');
-          background-size: cover;
-          background-position: center;
+          gap: clamp(28px, 4vw, 56px);
+          background: none;
         }
         .b2c-proof-hero::before {
           content: none;
@@ -384,9 +394,10 @@
         .b2c-proof-hero-content {
           position: relative;
           z-index: 1;
-          max-width: 760px;
-          margin: 0 auto;
-          text-align: center;
+          width: 100%;
+          max-width: 560px;
+          margin: 0;
+          text-align: left;
         }
         .b2c-proof-hero-eyebrow {
           font-size: clamp(20px, 2.4vw, 34px);
@@ -397,13 +408,33 @@
         }
         .b2c-proof-hero .section-title {
           margin: 10px 0 0;
-          text-align: center;
+          text-align: left;
           text-shadow: 0 12px 26px rgba(0,0,0,0.36);
-          font-size: clamp(42px, 5.8vw, 72px);
+          font-size: clamp(42px, 5vw, 70px);
           line-height: 1.1;
         }
         .b2c-proof-hero-highlight {
           color: #eaff5b;
+        }
+        .b2c-proof-hero-visual {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 0;
+        }
+        .b2c-proof-hero-device {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+        }
+        .b2c-proof-hero-device img {
+          display: block;
+          width: auto;
+          max-width: 100%;
+          max-height: min(68vh, 620px);
+          height: auto;
         }
         .b2c-proof-hero-badges {
           display: flex;
@@ -653,6 +684,387 @@
           font-size: 14px;
           text-align: center;
         }
+        .member-system-intro {
+          max-width: 760px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .member-system-intro-title {
+          margin: 0;
+          font-size: clamp(34px, 5vw, 56px);
+          font-weight: 700;
+          line-height: 1.2;
+          letter-spacing: -0.04em;
+          color: var(--white);
+        }
+        .member-system-intro-description {
+          margin-top: 10px;
+          font-size: 16px;
+          line-height: 1.7;
+          color: var(--text-secondary);
+        }
+        .member-content-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: clamp(20px, 2.4vw, 30px);
+          margin: 28px auto 0;
+          align-items: start;
+        }
+        .member-content-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          text-align: center;
+        }
+        .member-content-header {
+          max-width: 280px;
+        }
+        .member-content-kicker {
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.58);
+        }
+        .member-content-title {
+          margin-top: 8px;
+          font-size: clamp(24px, 3vw, 30px);
+          font-weight: 700;
+          line-height: 1.2;
+          letter-spacing: -0.04em;
+          color: var(--white);
+        }
+        .member-content-description {
+          margin-top: 10px;
+          font-size: 15px;
+          line-height: 1.72;
+          color: var(--text-secondary);
+        }
+        .member-content-visual {
+          position: relative;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          padding-bottom: 8px;
+        }
+        .member-content-screen {
+          width: min(100%, 292px);
+          filter: drop-shadow(0 24px 48px rgba(0,0,0,0.34));
+        }
+        .member-content-screen img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+        .member-content-badges {
+          position: absolute;
+          left: 50%;
+          bottom: 18px;
+          transform: translateX(-50%);
+          display: flex;
+          align-items: stretch;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          width: calc(100% - 28px);
+          max-width: 254px;
+        }
+        .member-content-badge {
+          min-width: 110px;
+          padding: 10px 14px;
+          border-radius: 18px;
+          background: rgba(10,14,24,0.84);
+          backdrop-filter: blur(12px);
+          box-shadow: 0 14px 32px rgba(0,0,0,0.32);
+        }
+        .member-content-badge-label {
+          display: block;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          color: rgba(255,255,255,0.68);
+        }
+        .member-content-badge-value {
+          display: block;
+          margin-top: 2px;
+          font-size: 18px;
+          font-weight: 700;
+          letter-spacing: -0.03em;
+          color: var(--white);
+        }
+        .member-content-flow {
+          max-width: 760px;
+          margin: 36px auto 0;
+          text-align: center;
+        }
+        .member-content-flow-copy {
+          font-size: clamp(18px, 2.4vw, 24px);
+          font-weight: 700;
+          line-height: 1.6;
+          letter-spacing: -0.03em;
+          color: var(--white);
+        }
+        .member-content-flow-copy span {
+          color: var(--accent);
+        }
+        .why-proof-image {
+          position: relative;
+          margin: 0 auto;
+          width: 100vw;
+          margin-left: calc(50% - 50vw);
+          overflow: hidden;
+          background: #05070b;
+        }
+        .why-proof-image::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.38) 42%, rgba(0,0,0,0.46) 100%);
+          pointer-events: none;
+        }
+        .why-proof-image img {
+          display: block;
+          width: 100%;
+          height: min(44vw, 520px);
+          min-height: 280px;
+          object-fit: cover;
+          object-position: center;
+          border-radius: 0;
+        }
+        .why-proof-caption {
+          position: absolute;
+          left: clamp(20px, 4vw, 48px);
+          bottom: clamp(18px, 4vw, 40px);
+          z-index: 1;
+          max-width: min(720px, calc(100% - 40px));
+          font-size: clamp(22px, 2.8vw, 44px);
+          font-weight: 800;
+          line-height: 1.24;
+          letter-spacing: -0.04em;
+          color: var(--white);
+          text-shadow: 0 10px 24px rgba(0,0,0,0.32);
+          word-break: keep-all;
+        }
+        .member-content-sequence {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 28px;
+          margin-top: 36px;
+        }
+        .member-content-sequence-item {
+          margin: 0;
+          display: block;
+        }
+        .member-content-sequence-item img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+        .before-after-showcase {
+          margin: 40px auto 0;
+          padding: 48px 28px;
+          color: var(--white);
+        }
+        .before-after-showcase__intro {
+          max-width: 820px;
+          margin: 0 auto 28px;
+          text-align: center;
+        }
+        .before-after-showcase__intro h3 {
+          margin: 0 0 12px;
+          font-size: 34px;
+          font-weight: 800;
+          line-height: 1.2;
+          color: var(--white);
+          letter-spacing: -0.04em;
+        }
+        .before-after-showcase__intro p {
+          margin: 0;
+          font-size: 18px;
+          line-height: 1.7;
+          color: var(--text-secondary);
+          letter-spacing: -0.02em;
+        }
+        .before-after-showcase__header {
+          max-width: 820px;
+          margin: 0 auto 40px;
+          text-align: center;
+        }
+        .before-after-showcase__header h3 {
+          margin: 0 0 14px;
+          font-size: 38px;
+          font-weight: 800;
+          line-height: 1.2;
+          color: var(--white);
+          letter-spacing: -0.03em;
+        }
+        .before-after-showcase__header p {
+          margin: 0;
+          font-size: 20px;
+          color: rgba(254,253,72,0.86);
+          line-height: 1.65;
+          letter-spacing: -0.02em;
+        }
+        .before-after-showcase__grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 20px;
+        }
+        .before-after-showcase__card {
+          padding: 24px;
+          border-radius: 24px;
+          background: rgba(255,255,255,0.04);
+          box-shadow: 0 20px 44px rgba(2, 6, 23, 0.26);
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          min-height: 100%;
+        }
+        .before-after-showcase__eyebrow {
+          display: inline-flex;
+          align-self: flex-start;
+          padding: 0;
+          color: var(--accent);
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+        .before-after-showcase__title {
+          margin: 0;
+          font-size: 30px;
+          line-height: 1.28;
+          font-weight: 800;
+          letter-spacing: -0.04em;
+          color: var(--white);
+          word-break: keep-all;
+        }
+        .before-after-showcase__description {
+          margin: 0;
+          font-size: 17px;
+          color: rgba(255,255,255,0.82);
+          line-height: 1.75;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          word-break: keep-all;
+        }
+        .before-after-showcase__image {
+          position: relative;
+          aspect-ratio: 4 / 3;
+          overflow: hidden;
+          border-radius: 18px;
+          background: #0d1623;
+        }
+        .before-after-showcase__image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .before-after-showcase__placeholder {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          text-align: center;
+          font-size: 17px;
+          font-weight: 700;
+          color: rgba(254,253,72,0.82);
+          background: #0d1623;
+        }
+        .before-after-showcase__facts {
+          list-style: none;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin: 0;
+          padding: 0;
+        }
+        .before-after-showcase__facts li {
+          display: inline-flex;
+          align-items: center;
+          padding: 10px 12px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.05);
+          color: rgba(255,255,255,0.88);
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          line-height: 1.4;
+        }
+        @media (max-width: 1100px) {
+          .before-after-showcase__header h3 {
+            font-size: 34px;
+          }
+          .before-after-showcase__header p {
+            font-size: 18px;
+          }
+          .before-after-showcase__title {
+            font-size: 26px;
+          }
+        }
+        @media (max-width: 900px) {
+          .before-after-showcase {
+            padding: 40px 20px;
+          }
+          .before-after-showcase__intro h3 {
+            font-size: 28px;
+          }
+          .before-after-showcase__intro p {
+            font-size: 16px;
+          }
+          .before-after-showcase__grid {
+            grid-template-columns: 1fr;
+          }
+          .before-after-showcase__header {
+            margin-bottom: 32px;
+          }
+          .before-after-showcase__header h3 {
+            font-size: 28px;
+          }
+          .before-after-showcase__header p {
+            font-size: 17px;
+          }
+        }
+        @media (max-width: 480px) {
+          .before-after-showcase {
+            padding: 32px 16px;
+          }
+          .before-after-showcase__intro {
+            margin-bottom: 24px;
+          }
+          .before-after-showcase__intro h3 {
+            font-size: 22px;
+          }
+          .before-after-showcase__intro p {
+            font-size: 15px;
+          }
+          .before-after-showcase__header h3 {
+            font-size: 22px;
+          }
+          .before-after-showcase__header p {
+            font-size: 15px;
+          }
+          .before-after-showcase__card {
+            padding: 20px;
+            gap: 18px;
+          }
+          .before-after-showcase__title {
+            font-size: 24px;
+          }
+          .before-after-showcase__description {
+            font-size: 15px;
+          }
+          .before-after-showcase__placeholder {
+            font-size: 15px;
+          }
+          .before-after-showcase__facts li {
+            font-size: 13px;
+          }
+        }
 
         /* VALIDATION */
         .validation-section {
@@ -823,7 +1235,6 @@
         .feature-summary {
           margin-top: 40px;
           padding-top: 28px;
-          border-top: 1px solid rgba(255,255,255,0.12);
           display: grid;
           grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
           gap: 24px 44px;
@@ -1039,6 +1450,11 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 10px;
           }
+          .member-content-grid {
+            grid-template-columns: 1fr;
+            max-width: 340px;
+            gap: 36px;
+          }
         }
 
         @media (min-width: 961px) {
@@ -1119,23 +1535,45 @@
           .hero-problem-item {
             max-width: 340px;
           }
-          .b2c-proof-section {
-            padding-top: calc(44px + var(--nav-offset));
+          .hero-section {
+            padding-top: calc(16px + var(--nav-offset));
+            padding-bottom: 0;
+          }
+          .why-section {
+            padding-top: 24px;
+            padding-bottom: 0;
+          }
+          .solution-section {
+            padding-top: 32px;
             padding-bottom: 44px;
           }
           .b2c-proof-hero {
-            aspect-ratio: auto;
-            min-height: 300px;
+            min-height: 0;
             padding: 24px;
             border-radius: 24px;
+            grid-template-columns: 1fr;
+            gap: 18px;
           }
           .b2c-proof-hero-eyebrow {
             font-size: clamp(18px, 5vw, 24px);
+          }
+          .b2c-proof-hero-content {
+            max-width: none;
+            text-align: center;
           }
           .b2c-proof-hero .section-title {
             margin-top: 8px;
             text-align: center;
             font-size: clamp(32px, 10vw, 46px);
+          }
+          .b2c-proof-hero-visual {
+            width: 100%;
+          }
+          .b2c-proof-hero-device {
+            width: 100%;
+          }
+          .b2c-proof-hero-device img {
+            max-height: min(54vh, 440px);
           }
           .b2c-proof-hero-badge {
             padding: 10px 14px;
@@ -1207,9 +1645,82 @@
           .b2c-proof-feature-gallery-label {
             font-size: 13px;
           }
+          .member-system-intro {
+            margin-top: 0;
+          }
+          .member-system-intro-description {
+            font-size: 14px;
+            line-height: 1.72;
+          }
+          .member-content-grid {
+            margin-top: 24px;
+            gap: 32px;
+          }
+          .why-proof-image {
+            margin-top: 0;
+          }
+          .why-proof-image img {
+            height: min(78vw, 460px);
+            min-height: 280px;
+            border-radius: 0;
+          }
+          .why-proof-caption {
+            left: 20px;
+            right: 20px;
+            bottom: 22px;
+            max-width: none;
+            font-size: clamp(22px, 6.4vw, 34px);
+            line-height: 1.28;
+          }
+          .member-system-intro-title {
+            font-size: clamp(34px, 5vw, 56px);
+            line-height: 1.2;
+          }
+          .member-content-sequence {
+            margin-top: 28px;
+            gap: 20px;
+            grid-template-columns: 1fr;
+          }
+          .member-content-card {
+            gap: 18px;
+          }
+          .member-content-title {
+            font-size: clamp(22px, 6.2vw, 28px);
+          }
+          .member-content-description {
+            font-size: 14px;
+            line-height: 1.68;
+          }
+          .member-content-screen {
+            width: min(100%, 280px);
+          }
+          .member-content-badges {
+            bottom: 14px;
+            width: calc(100% - 20px);
+            max-width: 236px;
+            gap: 8px;
+          }
+          .member-content-badge {
+            min-width: 104px;
+            padding: 9px 12px;
+            border-radius: 16px;
+          }
+          .member-content-badge-label {
+            font-size: 10px;
+          }
+          .member-content-badge-value {
+            font-size: 16px;
+          }
+          .member-content-flow {
+            margin-top: 32px;
+          }
+          .member-content-flow-copy {
+            font-size: 18px;
+            line-height: 1.72;
+          }
           .validation-chart {
             padding: 18px 12px;
-          }
+            }
           .validation-chart-bars {
             gap: 18px;
           }
@@ -1260,131 +1771,84 @@
     <a href="https://smore.im/form/wGrMVYhYLJ" target="_blank" rel="noreferrer" class="nav-cta">파일럿
         신청하기</a>
 </nav>
-<!--
- SERVICE INTRO
-<section class="service-intro">
-    <div class="service-intro-inner">
-        <div class="service-copy-block">
-            <h3 class="service-copy fade-up" style="transition-delay:0.1s">
-                <span class="service-copy-point">운동 인증부터 참여 유지까지,</span>
-                <span class="service-copy-main">회원과 센터를 연결하는 서비스</span>
-            </h3>
-        </div>
 
-        <div class="service-mock fade-up" style="transition-delay:0.16s">
-            <img src="images/service_img.png" alt="오운완 센터 서비스 랜딩 목업" class="service-preview-image">
-        </div>
-    </div>
-</section>-->
-
-<!-- HERO
-<div class="hero-wrap" id="main-hero">
-    <div class="hero-inner">
-        <div class="section-label hero-section-label fade-up">문제점</div>
-        <h1 class="hero-title fade-up" style="animation-delay:0.1s">
-            혹시<br>이런 문제 겪고 있지 않나요?
-        </h1>
-        <div class="hero-problem-list fade-up" style="animation-delay:0.18s">
-            <div class="hero-problem-item">
-                <div class="hero-problem-image hero-problem-image&#45;&#45;photo">
-                    <img src="images/p_1.png" alt="짐 내 멤버십 챌린지에 참여 중인 회원들">
-                </div>
-                <div class="hero-problem-title">회원 수는 계속 줄어들고</div>
-            </div>
-            <div class="hero-problem-item">
-                <div class="hero-problem-image hero-problem-image&#45;&#45;photo">
-                    <img src="images/p_2.png" alt="짐 내 멤버십 챌린지에 참여 중인 회원들">
-                </div>
-                <div class="hero-problem-title">경쟁속에 차별화는 안 되고</div>
-            </div>
-            <div class="hero-problem-item">
-                <div class="hero-problem-image hero-problem-image&#45;&#45;photo">
-                    <img src="images/p_3.png" alt="짐 내 멤버십 챌린지에 참여 중인 회원들">
-                </div>
-                <div class="hero-problem-title">회원 케어 및 관리는 점점 더 버거워지고</div>
-            </div>
-        </div>
-    </div>
-</div>-->
-
-<section class="b2c-proof-section">
+<section class="hero-section">
     <div class="b2c-proof-hero fade-up">
         <div class="b2c-proof-hero-content">
-            <div class="b2c-proof-hero-eyebrow">우리 센터 내</div>
-            <h2 class="section-title">
-                회원 참여 시스템
-                <br><span class="b2c-proof-hero-highlight">무료</span>로 도입해보세요.
+            <div class="b2c-proof-hero-eyebrow">피트니스 센터를 위한<br>운동 참여 서비스</div>
+            <h2 class="section-title"><span
+                    class="b2c-proof-hero-highlight">인증, 기록, 랭킹은<br>오운완!</span>
             </h2>
         </div>
-    </div>
-    <div class="b2c-proof-feature">
-        <div class="b2c-proof-feature-copy fade-up">
-            <div class="section-label fade-up">Main System</div>
-            <h3 class="b2c-proof-feature-title">운동 인증</h3>
-            <p class="b2c-proof-feature-intro">
-                피드 형태의 운동 인증
-            </p>
-        </div>
-        <div class="b2c-proof-feature-visual b2c-proof-feature-slot b2c-proof-feature-visual--compact fade-up"
-             style="animation-delay:0.08s">
-            <div class="b2c-proof-feature-screen-frame">
-                <img src="images/f_1.png" alt="피드형 운동 인증 화면">
-            </div>
-        </div>
-    </div>
-    <div class="b2c-proof-feature">
-        <div class="b2c-proof-feature-copy fade-up">
-            <h3 class="b2c-proof-feature-title">랭킹</h3>
-            <p class="b2c-proof-feature-intro">
-                운동 인증 일 수 기반 랭킹
-            </p>
-        </div>
-        <div class="b2c-proof-feature-visual b2c-proof-feature-slot b2c-proof-feature-visual--compact fade-up"
-             style="animation-delay:0.08s">
-            <div class="b2c-proof-feature-screen-frame">
-                <img src="images/f_2.png" alt="랭킹 화면">
-            </div>
-        </div>
-    </div>
-    <div class="b2c-proof-feature">
-        <div class="b2c-proof-feature-copy fade-up">
-            <h3 class="b2c-proof-feature-title">챌린지</h3>
-            <p class="b2c-proof-feature-intro">
-                센터 운영 기반 챌린지<br>
-                필요에 따라 보상 요소도 함께 운영 가능.
-            </p>
-        </div>
-        <div class="b2c-proof-feature-visual b2c-proof-feature-visual--compact fade-up"
-             style="animation-delay:0.08s">
-            <div class="b2c-proof-feature-screen-frame">
-                <img src="images/challenge.png" alt="센터 챌린지 화면">
-            </div>
-        </div>
-    </div>
-    <div class="b2c-proof-feature">
-        <div class="b2c-proof-feature-copy fade-up">
-            <h3 class="b2c-proof-feature-title">대시보드</h3>
-            <p class="b2c-proof-feature-intro">
-                센터 회원 참여 통계 제공
-            </p>
-        </div>
-        <div class="b2c-proof-feature-visual b2c-proof-feature-visual--compact fade-up"
-             style="animation-delay:0.08s">
-            <div class="b2c-proof-feature-screen-frame">
-                <img src="images/dashboard.png" alt="센터 대시보드 화면">
+        <div class="b2c-proof-hero-visual">
+            <div class="b2c-proof-hero-device">
+                <img src="images/intro.png" alt="오운완 운동 인증 피드 화면">
             </div>
         </div>
     </div>
 </section>
 
-<hr class="divider">
+<section class="why-section">
+    <div class="why-proof-image fade-up" style="transition-delay:0.02s">
+        <img src="images/why.png" alt="운동은 했지만 기록이 남지 않고 꾸준함도 이어지지 않는 피트니스 센터 회원의 상황">
+        <p class="why-proof-caption">운동만 하고 끝나는 센터,<br>기록과 자극이 없으면 회원은 떠납니다.</p>
+    </div>
+</section>
+
+<section class="solution-section">
+    <div class="member-system-intro fade-up" style="transition-delay:0.04s">
+        <h3 class="member-system-intro-title">오운완이 회원의<br>꾸준한 참여를 도와드려요.</h3>
+    </div>
+    <div class="member-content-sequence fade-up" style="transition-delay:0.08s">
+        <figure class="member-content-sequence-item">
+            <img src="images/i_1.png" alt="센터 내 운동 인증으로 서로를 응원하는 회원 컨텐츠 화면">
+        </figure>
+        <figure class="member-content-sequence-item">
+            <img src="images/i_2.png" alt="운동 인증이 내 기록이 되는 회원 컨텐츠 화면">
+        </figure>
+        <figure class="member-content-sequence-item">
+            <img src="images/i_3.png" alt="기록이 랭킹이 되어 동기부여를 만드는 회원 컨텐츠 화면">
+        </figure>
+        <figure class="member-content-sequence-item">
+            <img src="images/i_4.png" alt="게시판으로 회원 간 소통과 소속감을 강화하는 회원 컨텐츠 화면">
+        </figure>
+    </div>
+</section>
+
+<div class="feature-summary fade-up">
+    <div class="feature-summary-content">
+        <h3>회원들이 알아서 참여해요</h3>
+        <div class="feature-summary-body">
+            <p>카운터 및 거울쪽에 QR을 비치하세요.<br>스캔하면 센터 페이지로 이동해요.</p>
+        </div>
+    </div>
+    <div class="feature-summary-visual">
+        <div class="feature-summary-shot-frame">
+            <img src="images/qr_enter.png" alt="오운완 피드 목업 이미지" class="feature-summary-shot">
+        </div>
+    </div>
+</div>
+
+<div class="feature-summary fade-up">
+    <div class="feature-summary-content">
+        <h3>인증할수록<br>우리 센터가 노출돼요.</h3>
+        <div class="feature-summary-body">
+            <p>회원들이 남긴 인증피드가 콘텐츠가 되어 마케팅 효과가 돼요.</p>
+        </div>
+    </div>
+    <div class="feature-summary-visual">
+        <div class="feature-summary-shot-frame">
+            <img src="images/center_share.png" alt="오운완 피드 목업 이미지" class="feature-summary-shot">
+        </div>
+    </div>
+</div>
+</section>
 
 <!-- EFFECTS -->
 <section class="effects-section" id="current-app-proof">
-    <div class="section-label fade-up">서비스 검증</div>
     <div class="effect-proof fade-up" style="animation-delay:0.06s">
         <div class="effect-proof-copy">
-            <h3 class="effect-proof-headline">오운완에서 이미 증명했어요.</h3>
+            <h3 class="effect-proof-headline">이미 증명했어요.</h3>
             <p class="effect-proof-body">
                 1,500명 이상의 회원이 참여한 오운완 앱에서,<br>
                 모임 참여율이 개인 대비 <strong>10배</strong> 높았어요.<br>
@@ -1428,12 +1892,9 @@
     </div>
 </section>
 
-<hr class="divider">
-
 
 <!-- FEATURES -->
 <section class="feature-overview-section">
-    <div class="section-label fade-up">제공 기능</div>
     <h2 class="feature-overview-title fade-up">아래 기능들을 제공해요</h2>
     <div class="feature-tag tag-now fade-up">우선 제공</div>
     <div class="feature-grid feature-grid--six" style="margin-top: 8px;">
@@ -1483,127 +1944,97 @@
         </div>
     </div>
 
-    <div class="feature-summary fade-up">
-        <div class="feature-summary-kicker">QR 참여</div>
-        <div class="feature-summary-content">
-            <h3>회원들이 알아서 참여해요</h3>
-            <div class="feature-summary-body">
-                <p>카운터 및 거울쪽에 QR을 비치하세요.<br>스캔하면 센터 페이지로 이동해요.</p>
-            </div>
-        </div>
-        <div class="feature-summary-visual">
-            <div class="feature-summary-shot-frame">
-                <img src="images/qr_enter.png" alt="오운완 피드 목업 이미지" class="feature-summary-shot">
-            </div>
-        </div>
+    <!-- CTA -->
+    <div class="cta-section" id="cta">
+        <div class="cta-open-badge fade-up">7월 오픈 예정</div>
+        <h2 class="fade-up"><em>파일럿 기간 동안</em><br>무료 경험해보세요.</h2>
+        <p class="fade-up" style="animation-delay:0.1s">파일럿 센터는 정식 출시 후에도 여러가지 혜택을 드려요.</p>
+        <a href="https://smore.im/form/wGrMVYhYLJ" target="_blank" rel="noreferrer"
+           class="btn-primary fade-up"
+           style="animation-delay:0.2s; font-size:16px; padding:16px 36px;">파일럿 신청하기</a>
     </div>
 
-    <div class="feature-summary fade-up">
-        <div class="feature-summary-kicker">센터 브랜딩</div>
-        <div class="feature-summary-content">
-            <h3>인증할수록<br>우리 센터가 노출돼요.</h3>
-            <div class="feature-summary-body">
-                <p>회원들이 남긴 인증피드가 콘텐츠가 되어 마케팅 효과가 돼요.</p>
-            </div>
-        </div>
-        <div class="feature-summary-visual">
-            <div class="feature-summary-shot-frame">
-                <img src="images/center_share.png" alt="오운완 피드 목업 이미지" class="feature-summary-shot">
-            </div>
-        </div>
-    </div>
-</section>
+    <script>
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-<!-- CTA -->
-<div class="cta-section" id="cta">
-    <div class="cta-open-badge fade-up">7월 오픈 예정</div>
-    <h2 class="fade-up"><em>파일럿 기간 동안</em><br>무료 경험해보세요.</h2>
-    <p class="fade-up" style="animation-delay:0.1s">파일럿 센터는 정식 출시 후에도 여러가지 혜택을 드려요.</p>
-    <a href="https://smore.im/form/wGrMVYhYLJ" target="_blank" rel="noreferrer"
-       class="btn-primary fade-up"
-       style="animation-delay:0.2s; font-size:16px; padding:16px 36px;">파일럿 신청하기</a>
-</div>
+        const previewStage = document.querySelector('.service-preview-scroll-stage');
+        const previewFrame = document.querySelector('.service-preview-full-frame');
+        const previewViewport = document.querySelector('.service-preview-screen');
+        const previewImage = document.querySelector('.service-preview-scroll-image');
+        const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let previewMetrics = null;
+        let previewTicking = false;
 
-<script>
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+        const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-    const previewStage = document.querySelector('.service-preview-scroll-stage');
-    const previewFrame = document.querySelector('.service-preview-full-frame');
-    const previewViewport = document.querySelector('.service-preview-screen');
-    const previewImage = document.querySelector('.service-preview-scroll-image');
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let previewMetrics = null;
-    let previewTicking = false;
+        const updatePreviewMetrics = () => {
+          if (!previewStage || !previewFrame || !previewViewport || !previewImage) return;
 
-    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+          const stickyTop = parseFloat(getComputedStyle(previewFrame).top) || 0;
+          const frameHeight = previewFrame.offsetHeight;
+          const viewportHeight = previewViewport.offsetHeight;
+          const imageHeight = previewImage.offsetHeight;
+          const stageTop = window.scrollY + previewStage.getBoundingClientRect().top;
+          const scrollRange = Math.max(previewStage.offsetHeight - frameHeight, 1);
 
-    const updatePreviewMetrics = () => {
-      if (!previewStage || !previewFrame || !previewViewport || !previewImage) return;
+          previewMetrics = {
+            start: stageTop - stickyTop,
+            end: stageTop - stickyTop + scrollRange,
+            maxOffset: Math.min(0, viewportHeight - imageHeight)
+          };
 
-      const stickyTop = parseFloat(getComputedStyle(previewFrame).top) || 0;
-      const frameHeight = previewFrame.offsetHeight;
-      const viewportHeight = previewViewport.offsetHeight;
-      const imageHeight = previewImage.offsetHeight;
-      const stageTop = window.scrollY + previewStage.getBoundingClientRect().top;
-      const scrollRange = Math.max(previewStage.offsetHeight - frameHeight, 1);
+          updatePreviewPosition();
+        };
 
-      previewMetrics = {
-        start: stageTop - stickyTop,
-        end: stageTop - stickyTop + scrollRange,
-        maxOffset: Math.min(0, viewportHeight - imageHeight)
-      };
+        const updatePreviewPosition = () => {
+          previewTicking = false;
+          if (!previewImage || !previewMetrics) return;
 
-      updatePreviewPosition();
-    };
+          if (reducedMotionQuery.matches || previewMetrics.maxOffset === 0) {
+            previewImage.style.transform = 'translateY(0)';
+            return;
+          }
 
-    const updatePreviewPosition = () => {
-      previewTicking = false;
-      if (!previewImage || !previewMetrics) return;
+          const progress = clamp(
+            (window.scrollY - previewMetrics.start) / (previewMetrics.end - previewMetrics.start),
+            0,
+            1
+          );
 
-      if (reducedMotionQuery.matches || previewMetrics.maxOffset === 0) {
-        previewImage.style.transform = 'translateY(0)';
-        return;
-      }
+          previewImage.style.transform = `translateY(${previewMetrics.maxOffset * progress}px)`;
+        };
 
-      const progress = clamp(
-        (window.scrollY - previewMetrics.start) / (previewMetrics.end - previewMetrics.start),
-        0,
-        1
-      );
+        const requestPreviewPosition = () => {
+          if (previewTicking) return;
+          previewTicking = true;
+          window.requestAnimationFrame(updatePreviewPosition);
+        };
 
-      previewImage.style.transform = `translateY(${previewMetrics.maxOffset * progress}px)`;
-    };
+        if (previewStage && previewFrame && previewViewport && previewImage) {
+          previewImage.addEventListener('load', updatePreviewMetrics);
+          window.addEventListener('resize', updatePreviewMetrics);
+          window.addEventListener('scroll', requestPreviewPosition, { passive: true });
 
-    const requestPreviewPosition = () => {
-      if (previewTicking) return;
-      previewTicking = true;
-      window.requestAnimationFrame(updatePreviewPosition);
-    };
+          if (typeof reducedMotionQuery.addEventListener === 'function') {
+            reducedMotionQuery.addEventListener('change', updatePreviewMetrics);
+          }
 
-    if (previewStage && previewFrame && previewViewport && previewImage) {
-      previewImage.addEventListener('load', updatePreviewMetrics);
-      window.addEventListener('resize', updatePreviewMetrics);
-      window.addEventListener('scroll', requestPreviewPosition, { passive: true });
+          updatePreviewMetrics();
+          window.addEventListener('load', updatePreviewMetrics, { once: true });
+        }
 
-      if (typeof reducedMotionQuery.addEventListener === 'function') {
-        reducedMotionQuery.addEventListener('change', updatePreviewMetrics);
-      }
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+          a.addEventListener('click', e => {
+            e.preventDefault();
+            const t = document.querySelector(a.getAttribute('href'));
+            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+    </script>
 
-      updatePreviewMetrics();
-      window.addEventListener('load', updatePreviewMetrics, { once: true });
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-</script>
 
 </body>
 </html>
