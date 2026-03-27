@@ -331,6 +331,8 @@
         .hero-section,
         .why-section,
         .participation-loop-section,
+        .feature-access-section,
+        .effects-section,
         .impact-compare-section,
         .solution-section {
           max-width: 1240px;
@@ -359,6 +361,17 @@
           padding-top: 48px;
           padding-bottom: 48px;
         }
+        .feature-access-section {
+          padding-top: 40px;
+          padding-bottom: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .effects-section {
+          padding-top: 72px;
+          padding-bottom: 32px;
+        }
         .impact-compare-section {
           padding-top: 48px;
           padding-bottom: 12px;
@@ -373,7 +386,7 @@
           letter-spacing: -0.05em;
         }
         .solution-section {
-          padding-top: 128px;
+          padding-top: 112px;
           padding-bottom: 56px;
         }
         .b2c-proof-hero {
@@ -399,6 +412,21 @@
           margin: 0;
           text-align: left;
         }
+        .b2c-proof-hero-launch-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 18px;
+          padding: 10px 16px;
+          border-radius: 999px;
+          border: 1px solid rgba(255,255,255,0.22);
+          background: rgba(255,255,255,0.08);
+          color: var(--white);
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          backdrop-filter: blur(8px);
+        }
         .b2c-proof-hero-eyebrow {
           font-size: clamp(20px, 2.4vw, 34px);
           font-weight: 700;
@@ -412,6 +440,15 @@
           text-shadow: 0 12px 26px rgba(0,0,0,0.36);
           font-size: clamp(42px, 5vw, 70px);
           line-height: 1.1;
+        }
+        .b2c-proof-hero-subcopy {
+          margin-top: 18px;
+          max-width: 520px;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1.7;
+          letter-spacing: -0.03em;
+          color: var(--text-secondary);
         }
         .b2c-proof-hero-highlight {
           color: #eaff5b;
@@ -635,6 +672,72 @@
           line-height: 1.2;
           letter-spacing: -0.04em;
           color: var(--white);
+        }
+        .member-system-intro-copy {
+          max-width: 620px;
+          margin: 12px auto 0;
+          font-size: 16px;
+          line-height: 1.75;
+          color: var(--text-secondary);
+        }
+        .member-feature-group {
+          margin-top: 40px;
+        }
+        .member-feature-group--upcoming {
+          margin-top: 56px;
+          padding-top: 40px;
+          border-top: 1px solid var(--border);
+        }
+        .member-feature-group-intro {
+          max-width: 760px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .member-feature-group-kicker {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 7px 12px;
+          border-radius: 999px;
+          border: 1px solid rgba(59,158,255,0.24);
+          background: rgba(59,158,255,0.08);
+          color: #8dc5ff;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .member-feature-group-kicker--soon {
+          border-color: rgba(138,154,176,0.18);
+          background: rgba(138,154,176,0.1);
+          color: var(--text-muted);
+        }
+        .member-feature-group-title {
+          margin-top: 16px;
+          font-size: clamp(28px, 3.2vw, 40px);
+          font-weight: 700;
+          line-height: 1.2;
+          letter-spacing: -0.04em;
+          color: var(--white);
+        }
+        .member-feature-group-desc {
+          max-width: 620px;
+          margin: 12px auto 0;
+          font-size: 15px;
+          line-height: 1.75;
+          color: var(--text-secondary);
+        }
+        .member-feature-group .member-content-sequence {
+          margin-top: 24px;
+        }
+        .solution-section .member-content-sequence-copy {
+          min-height: 44px;
+          align-items: center;
+          justify-content: flex-end;
+          text-align: center;
+        }
+        .solution-section .member-content-sequence-heading {
+          width: 100%;
         }
         .why-proof-image {
           position: relative;
@@ -860,6 +963,29 @@
           color: var(--white);
           word-break: keep-all;
         }
+        .feature-access-intro {
+          max-width: 760px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .feature-access-intro .section-desc {
+          margin-top: 12px;
+        }
+        .feature-access-section > .feature-summary {
+          width: 100%;
+          max-width: 760px;
+          margin-top: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 22px;
+        }
+        .feature-access-section > .feature-summary:first-of-type {
+          margin-top: 28px;
+        }
+        .feature-access-section > .feature-summary + .feature-summary {
+          margin-top: 56px;
+        }
         .member-content-sequence {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1055,12 +1181,15 @@
         .flow-content p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
 
         .feature-summary {
-          margin-top: 128px;
+          margin-top: 56px;
           padding-top: 0;
           display: grid;
           grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
           gap: 24px 44px;
           align-items: center;
+        }
+        .feature-summary + .feature-summary {
+          margin-top: 96px;
         }
         .feature-summary h3 {
           font-size: clamp(34px, 5vw, 56px);
@@ -1105,7 +1234,7 @@
 
         /* EFFECTS */
         .effect-proof {
-          margin-top: 28px;
+          margin-top: 0;
           padding: 0;
         }
         .effects-section .section-label {
@@ -1405,12 +1534,20 @@
             padding-top: 32px;
             padding-bottom: 32px;
           }
+          .feature-access-section {
+            padding-top: 24px;
+            padding-bottom: 0;
+          }
+          .effects-section {
+            padding-top: 56px;
+            padding-bottom: 20px;
+          }
           .impact-compare-section {
             padding-top: 32px;
             padding-bottom: 0;
           }
           .solution-section {
-            padding-top: 96px;
+            padding-top: 80px;
             padding-bottom: 44px;
           }
           .b2c-proof-hero {
@@ -1427,10 +1564,19 @@
             max-width: none;
             text-align: center;
           }
+          .b2c-proof-hero-launch-badge {
+            margin: 0 auto 14px;
+            font-size: 12px;
+          }
           .b2c-proof-hero .section-title {
             margin-top: 8px;
             text-align: center;
             font-size: clamp(32px, 10vw, 46px);
+          }
+          .b2c-proof-hero-subcopy {
+            margin: 14px auto 0;
+            font-size: 15px;
+            line-height: 1.68;
           }
           .b2c-proof-hero-visual {
             width: 100%;
@@ -1516,6 +1662,30 @@
           }
           .member-system-intro {
             margin-top: 0;
+          }
+          .member-system-intro-copy {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.72;
+          }
+          .member-feature-group {
+            margin-top: 32px;
+          }
+          .member-feature-group--upcoming {
+            margin-top: 40px;
+            padding-top: 32px;
+          }
+          .member-feature-group .member-content-sequence {
+            margin-top: 18px;
+          }
+          .member-feature-group-title {
+            margin-top: 14px;
+            font-size: clamp(24px, 7vw, 32px);
+          }
+          .member-feature-group-desc {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.72;
           }
           .why-proof-image {
             margin-top: 0;
@@ -1631,16 +1801,31 @@
           }
           .hero-problem-title { font-size: clamp(12px, 7vw, 18px); }
           .feature-summary {
-            margin-top: 96px;
+            margin-top: 40px;
             grid-template-columns: 1fr;
             gap: 12px;
             padding-top: 0;
+          }
+          .feature-summary + .feature-summary {
+            margin-top: 64px;
+          }
+          .feature-access-section > .feature-summary {
+            gap: 18px;
+          }
+          .feature-access-section > .feature-summary:first-of-type {
+            margin-top: 20px;
+          }
+          .feature-access-section > .feature-summary + .feature-summary {
+            margin-top: 40px;
           }
           .feature-summary-visual {
             margin-top: 6px;
           }
           .feature-summary-shot-frame {
             width: min(100%, 300px);
+          }
+          .solution-section .member-content-sequence-copy {
+            min-height: 40px;
           }
           .pilot-process {
             margin-bottom: 56px;
@@ -1707,10 +1892,11 @@
 <section class="hero-section">
     <div class="b2c-proof-hero fade-up">
         <div class="b2c-proof-hero-content">
-            <div class="b2c-proof-hero-eyebrow">운동 인증부터 재방문까지</div>
+            <div class="b2c-proof-hero-launch-badge">8월 오픈 예정</div>
             <h2 class="section-title"><span
-                    class="b2c-proof-hero-highlight">오운완!</span>
+                    class="b2c-proof-hero-highlight">센터 안에서도</span><br>오운완!
             </h2>
+            <p class="b2c-proof-hero-subcopy">QR 운동 인증으로 참여를 시작하고<br>기록과 랭킹으로 재방문을 유도해요</p>
         </div>
         <div class="b2c-proof-hero-visual">
             <div class="b2c-proof-hero-device">
@@ -1744,7 +1930,7 @@
                 </li>
                 <li class="participation-loop-step">
                     <span class="participation-loop-step-icon" aria-hidden="true">🏆</span>
-                    <p class="participation-loop-step-text">쌓인 기록에 순위가 매겨져</p>
+                    <p class="participation-loop-step-text">쌓인 기록으로 순위가 매겨져요.</p>
                 </li>
                 <li class="participation-loop-step">
                     <span class="participation-loop-step-icon" aria-hidden="true">💪</span>
@@ -1752,149 +1938,39 @@
                 </li>
                 <li class="participation-loop-step">
                     <span class="participation-loop-step-icon" aria-hidden="true">🔁</span>
-                    <p class="participation-loop-step-text">지속적인 참여가 센터에 더 오래 머무는 흐름으로 이어져요.</p>
+                    <p class="participation-loop-step-text">꾸준한 참여를 재방문과 장기 이용으로 자연스럽게 이어져요.</p>
                 </li>
             </ol>
         </div>
     </div>
 </section>
 
-<section class="impact-compare-section">
-    <h2 class="section-title">오운완 도입하면<br>센터는 어떻게 달라질까요?</h2>
-    <div class="impact-compare-grid">
-        <article class="impact-compare-card fade-up" style="transition-delay:0.08s">
-            <h3 class="impact-compare-title">부담이 커지는 신규 유입 광고비</h3>
-            <div class="impact-compare-block">
-                <p class="impact-compare-label">도입 전</p>
-                <p class="impact-compare-text">기존 회원이 빠져나갈수록 신규 유입 광고비를 계속 써야 해요</p>
-            </div>
-            <div class="impact-compare-block">
-                <p class="impact-compare-label">도입 후</p>
-                <p class="impact-compare-text">회원 재방문과 유지가 늘어나며 광고 의존도를 낮출 수 있어요</p>
-            </div>
-        </article>
-        <article class="impact-compare-card fade-up" style="transition-delay:0.12s">
-            <h3 class="impact-compare-title">방치되기 쉬운 회원 관리</h3>
-            <div class="impact-compare-block">
-                <p class="impact-compare-label">도입 전</p>
-                <p class="impact-compare-text">회원이 꾸준히 나오게 하려면 직접 계속 챙겨야 하고, 놓치면 자연스럽게 멀어지게 됩니다.</p>
-            </div>
-            <div class="impact-compare-block">
-                <p class="impact-compare-label">도입 후</p>
-                <p class="impact-compare-text">회원이 스스로 참여하는 흐름이 생겨 일일이 챙기지 않아도 꾸준히 이어질 수 있습니다.</p>
-            </div>
-        </article>
-        <article class="impact-compare-card impact-compare-card--wide fade-up"
-                 style="transition-delay:0.16s">
-            <h3 class="impact-compare-title">다른 센터와의 차별점이 부족해요</h3>
-            <div class="impact-compare-block">
-                <p class="impact-compare-label">도입 전</p>
-                <p class="impact-compare-text">운동 기구나 가격, 프로그램만으로는 우리 센터만의 차별점을 회원이 충분히 느끼기 어려울 수
-                    있어요. </p>
-            </div>
-            <div class="impact-compare-block">
-                <p class="impact-compare-label">도입 후</p>
-                <p class="impact-compare-text">회원 참여와 인증이 쌓이면서 우리 센터만의 분위기와 운영 차별점을 만들 수 있어요</p>
-            </div>
-        </article>
+<section class="feature-access-section">
+    <div class="feature-access-intro fade-up" style="transition-delay:0.08s">
+        <h2 class="section-title">도입은 가볍고,<br>운영 부담은 낮아요.</h2>
+        <p class="section-desc">회원은 QR로 바로 참여하고<br>센터는 추가 인력 없이 운영 부담을 완화해요.</p>
     </div>
-</section>
-
-<div class="feature-summary fade-up">
-    <div class="feature-summary-content">
-        <h3>쉽게 QR로 참여해요.</h3>
-        <div class="feature-summary-body">
-            <p>추가 인력 필요없이<br>
-                QR스캔만으로 가입하고 참여해요.<br>
-            </p>
+    <div class="feature-summary fade-up" style="transition-delay:0.12s">
+        <div class="feature-summary-visual">
+            <div class="feature-summary-shot-frame">
+                <img src="images/qr_enter.png" alt="오운완 QR 참여 화면" class="feature-summary-shot">
+            </div>
         </div>
     </div>
-    <div class="feature-summary-visual">
-        <div class="feature-summary-shot-frame">
-            <img src="images/qr_enter.png" alt="오운완 피드 목업 이미지" class="feature-summary-shot">
-        </div>
-    </div>
-</div>
-
-<div class="feature-summary fade-up">
-    <div class="feature-summary-content">
-        <h3>인증할수록<br>우리 센터가 노출돼요.</h3>
-        <div class="feature-summary-body">
-            <p>회원들의 인증이 쌓일수록<br>
+    <div class="feature-summary fade-up" style="transition-delay:0.16s">
+        <div class="feature-access-intro fade-up" style="transition-delay:0.08s">
+            <h2 class="section-title">인증할수록<br>우리 센터가 노출돼요.</h2>
+            <p class="section-desc">회원들의 인증이 쌓일수록<br>
                 우리 센터가 자연스럽게 노출되고,<br>
                 별도 광고 없이도 센터를 알릴 기회가 늘어나요.</p>
         </div>
-    </div>
-    <div class="feature-summary-visual">
-        <div class="feature-summary-shot-frame">
-            <img src="images/center_share.png" alt="오운완 피드 목업 이미지" class="feature-summary-shot">
+        <div class="feature-summary-visual">
+            <div class="feature-summary-shot-frame">
+                <img src="images/center_share.png" alt="오운완 센터 노출 화면" class="feature-summary-shot">
+            </div>
         </div>
     </div>
-</div>
 </section>
-
-<section class="solution-section">
-    <div class="member-system-intro fade-up" style="transition-delay:0.04s">
-        <h3 class="member-system-intro-title">기록과 참여를<br>만드는 핵심 기능</h3>
-    </div>
-    <div class="member-content-sequence fade-up" style="transition-delay:0.08s">
-        <figure class="member-content-sequence-item">
-            <figcaption class="member-content-sequence-copy">
-                <span class="member-content-sequence-label member-content-sequence-label--now">우선 제공</span>
-                <h4 class="member-content-sequence-heading">운동 인증 피드</h4>
-            </figcaption>
-            <div class="member-content-sequence-visual">
-                <img src="images/m_1.png" alt="운동 인증 피드">
-            </div>
-        </figure>
-        <figure class="member-content-sequence-item">
-            <figcaption class="member-content-sequence-copy">
-                <span class="member-content-sequence-label member-content-sequence-label--now">우선 제공</span>
-                <h4 class="member-content-sequence-heading">센터 회원 운동 기록</h4>
-            </figcaption>
-            <div class="member-content-sequence-visual">
-                <img src="images/m_2.png" alt="센터 안 내 운동 기록 화면">
-            </div>
-        </figure>
-        <figure class="member-content-sequence-item">
-            <figcaption class="member-content-sequence-copy">
-                <span class="member-content-sequence-label member-content-sequence-label--now">우선 제공</span>
-                <h4 class="member-content-sequence-heading">센터 랭킹</h4>
-            </figcaption>
-            <div class="member-content-sequence-visual">
-                <img src="images/m_3.png" alt="센터 랭킹 화면">
-            </div>
-        </figure>
-        <figure class="member-content-sequence-item">
-            <figcaption class="member-content-sequence-copy">
-                <span class="member-content-sequence-label member-content-sequence-label--now">우선 제공</span>
-                <h4 class="member-content-sequence-heading">센터 게시판</h4>
-            </figcaption>
-            <div class="member-content-sequence-visual">
-                <img src="images/m_4.png" alt="센터 게시판 화면">
-            </div>
-        </figure>
-        <figure class="member-content-sequence-item">
-            <figcaption class="member-content-sequence-copy">
-                <span class="member-content-sequence-label member-content-sequence-label--soon">추후 제공</span>
-                <h4 class="member-content-sequence-heading">센터 챌린지</h4>
-            </figcaption>
-            <div class="member-content-sequence-visual">
-                <img src="images/m_5.png" alt="챌린지 화면">
-            </div>
-        </figure>
-        <figure class="member-content-sequence-item">
-            <figcaption class="member-content-sequence-copy">
-                <span class="member-content-sequence-label member-content-sequence-label--soon">추후 제공</span>
-                <h4 class="member-content-sequence-heading">관리자 대시보드</h4>
-            </figcaption>
-            <div class="member-content-sequence-visual">
-                <img src="images/m_6.png" alt="관리자 대시보드 화면">
-            </div>
-        </figure>
-    </div>
-</section>
-
 
 <!-- EFFECTS -->
 <section class="effects-section" id="current-app-proof">
@@ -1948,6 +2024,118 @@
     </div>
 </section>
 
+<section class="impact-compare-section">
+    <h2 class="section-title">오운완 도입하면<br>센터는 어떻게 달라질까요?</h2>
+    <div class="impact-compare-grid">
+        <article class="impact-compare-card fade-up" style="transition-delay:0.08s">
+            <h3 class="impact-compare-title">💸 신규 유입에 드는 광고비 절약</h3>
+            <div class="impact-compare-block">
+                <p class="impact-compare-label">도입 전</p>
+                <p class="impact-compare-text">기존 회원이 빠져나갈수록 신규 유입 광고비를 계속 써야 해요</p>
+            </div>
+            <div class="impact-compare-block">
+                <p class="impact-compare-label">도입 후</p>
+                <p class="impact-compare-text">회원 재방문과 유지가 늘어나며 광고 의존도를 낮출 수 있어요</p>
+            </div>
+        </article>
+        <article class="impact-compare-card fade-up" style="transition-delay:0.12s">
+            <h3 class="impact-compare-title">🙌 일일이 챙기지 않아도 이어지는 회원 참여</h3>
+            <div class="impact-compare-block">
+                <p class="impact-compare-label">도입 전</p>
+                <p class="impact-compare-text">회원이 꾸준히 나오게 하려면 직접 계속 챙겨야 하고, 놓치면 자연스럽게 멀어지게 돼요.</p>
+            </div>
+            <div class="impact-compare-block">
+                <p class="impact-compare-label">도입 후</p>
+                <p class="impact-compare-text">회원이 스스로 참여하는 흐름이 생겨 일일이 챙기지 않아도 꾸준히 이어질 수 있어요.</p>
+            </div>
+        </article>
+        <article class="impact-compare-card impact-compare-card--wide fade-up"
+                 style="transition-delay:0.16s">
+            <h3 class="impact-compare-title">✨ 보이는 참여로 생기는 센터 차별화</h3>
+            <div class="impact-compare-block">
+                <p class="impact-compare-label">도입 전</p>
+                <p class="impact-compare-text">운동 기구나 가격, 프로그램만으로는 우리 센터만의 차별점을 회원이 충분히 느끼기 어려울 수
+                    있어요.</p>
+            </div>
+            <div class="impact-compare-block">
+                <p class="impact-compare-label">도입 후</p>
+                <p class="impact-compare-text">회원 참여와 인증이 쌓이면서 우리 센터만의 분위기와 운영 차별점을 만들 수 있어요</p>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="solution-section">
+    <div class="member-system-intro fade-up" style="transition-delay:0.04s">
+        <h3 class="member-system-intro-title">기록과 참여를<br>만드는 핵심 기능</h3>
+        <p class="member-system-intro-copy">우선 회원 참여가 가능한 기능부터 제공하고<br>이후 운영 범위를 넓히는 기능을 확장해요.
+        </p>
+    </div>
+    <div class="member-feature-group fade-up" style="transition-delay:0.08s">
+        <div class="member-feature-group-intro">
+            <span class="member-feature-group-kicker">우선 제공하는 기능</span>
+        </div>
+        <div class="member-content-sequence">
+            <figure class="member-content-sequence-item">
+                <figcaption class="member-content-sequence-copy">
+                    <h4 class="member-content-sequence-heading">운동 인증 피드</h4>
+                </figcaption>
+                <div class="member-content-sequence-visual">
+                    <img src="images/m_1.png" alt="운동 인증 피드">
+                </div>
+            </figure>
+            <figure class="member-content-sequence-item">
+                <figcaption class="member-content-sequence-copy">
+                    <h4 class="member-content-sequence-heading">센터 회원 운동 기록</h4>
+                </figcaption>
+                <div class="member-content-sequence-visual">
+                    <img src="images/m_2.png" alt="센터 안 내 운동 기록 화면">
+                </div>
+            </figure>
+            <figure class="member-content-sequence-item">
+                <figcaption class="member-content-sequence-copy">
+                    <h4 class="member-content-sequence-heading">센터 랭킹</h4>
+                </figcaption>
+                <div class="member-content-sequence-visual">
+                    <img src="images/m_3.png" alt="센터 랭킹 화면">
+                </div>
+            </figure>
+            <figure class="member-content-sequence-item">
+                <figcaption class="member-content-sequence-copy">
+                    <h4 class="member-content-sequence-heading">센터 게시판</h4>
+                </figcaption>
+                <div class="member-content-sequence-visual">
+                    <img src="images/m_4.png" alt="센터 게시판 화면">
+                </div>
+            </figure>
+        </div>
+    </div>
+    <div class="member-feature-group member-feature-group--upcoming fade-up"
+         style="transition-delay:0.12s">
+        <div class="member-feature-group-intro">
+            <span class="member-feature-group-kicker member-feature-group-kicker--soon">추후 확장 기능</span>
+        </div>
+        <div class="member-content-sequence">
+            <figure class="member-content-sequence-item">
+                <figcaption class="member-content-sequence-copy">
+                    <h4 class="member-content-sequence-heading">센터 챌린지</h4>
+                </figcaption>
+                <div class="member-content-sequence-visual">
+                    <img src="images/m_5.png" alt="챌린지 화면">
+                </div>
+            </figure>
+            <figure class="member-content-sequence-item">
+                <figcaption class="member-content-sequence-copy">
+                    <h4 class="member-content-sequence-heading">관리자 대시보드</h4>
+                </figcaption>
+                <div class="member-content-sequence-visual">
+                    <img src="images/m_6.png" alt="관리자 대시보드 화면">
+                </div>
+            </figure>
+        </div>
+    </div>
+</section>
+
 
 
 
@@ -1995,7 +2183,7 @@
                 </div>
             </div>
         </div>
-        <div class="cta-open-badge fade-up">8월 센터 기능 오픈 예정</div>
+        <div class="cta-open-badge fade-up">8월 오픈 예정</div>
         <h2 class="fade-up"><em>무료로 먼저</em><br>경험해보세요.</h2>
         <p class="fade-up" style="animation-delay:0.1s">사전도입 센터는 정식 출시 후에도<br>여러가지 혜택을 드려요.</p>
         <a href="https://smore.im/form/wGrMVYhYLJ" target="_blank" rel="noreferrer"
