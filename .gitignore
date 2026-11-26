@@ -1,0 +1,10 @@
+# Local editor and operating system files.
+/.idea/
+.DS_Store
+
+# Internal mockups must not be published through the public GitHub Pages site.
+/mockups/
+/.wrangler/
+/tools/mockup-host/.assets/
+/tools/mockup-host/.dev.vars
+/tools/mockup-host/.wrangler/
